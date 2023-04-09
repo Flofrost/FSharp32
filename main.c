@@ -2,8 +2,8 @@
 
 void main(){
     
-    DDRD = 0xF0; // PD7 output
-    PORTD = 0xF0; // PD7 ON
+    DDRA = 0x02; // PD7 output
+    PORTA = 0x02; // PD7 ON
                   
     return;
 }

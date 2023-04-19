@@ -15,11 +15,26 @@ ISR(TIMER0_COMP_vect){
     timeCounter++;
 }
 
+void uartSendINT8(const uint8_t x){
+    while(!(UCSRA & 0x20));
+    UDR = x;
+}
+
+void uartSendSTR(const char* s){
+    for(uint8_t i = 0 ; s[i] ; i++){
+        while(!(UCSRA & 0x20));
+        UDR = s[i];
+    }
+}
+
 void main(){
     
     TCCR0 = 0x0A;
     OCR0  = 127;
-    TIMSK = 0x02;
+    TIMSK = 0x02; // output sample at roughly 15 kHz
+
+    UCSRB = 0x18;
+    UBRRL = 0x08;
     
     DDRA = 0xFF;
     
@@ -28,6 +43,7 @@ void main(){
     sei();
     
     while(1){
+        uartSendSTR("HELLO\n");
     }
                   
     return;

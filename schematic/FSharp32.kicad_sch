@@ -178,13 +178,13 @@
       )
     )
     (symbol "Connector:AudioJack2_Ground" (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 8.89 0)
+      (property "Reference" "J3" (at -0.635 7.5098 0)
         (effects (font (size 1.27 1.27)))
       )
-      (property "Value" "AudioJack2_Ground" (at 0 6.35 0)
+      (property "Value" "AudioJack2_Ground" (at -0.635 4.9729 0)
         (effects (font (size 1.27 1.27)))
       )
-      (property "Footprint" "" (at 0 0 0)
+      (property "Footprint" "Connector_Audio:Jack_3.5mm_Lumberg_1503_07_Horizontal" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "Datasheet" "~" (at 0 0 0)
@@ -233,7 +233,7 @@
       (symbol "AudioJack2_Ground_1_1"
         (pin passive line (at 0 -5.08 90) (length 2.54)
           (name "~" (effects (font (size 1.27 1.27))))
-          (number "G" (effects (font (size 1.27 1.27))))
+          (number "R" (effects (font (size 1.27 1.27))))
         )
         (pin passive line (at 5.08 2.54 180) (length 2.54)
           (name "~" (effects (font (size 1.27 1.27))))
@@ -3534,7 +3534,7 @@
   (symbol (lib_id "power:GND") (at 198.12 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 003f87a0-3785-4c78-9c7c-b09cb6e38304)
-    (property "Reference" "#PWR0110" (at 198.12 116.84 0)
+    (property "Reference" "#PWR037" (at 198.12 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 198.12 114.9334 0)
@@ -3550,7 +3550,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0110") (unit 1)
+          (reference "#PWR037") (unit 1)
         )
       )
     )
@@ -3559,7 +3559,7 @@
   (symbol (lib_id "Device:R") (at 139.7 149.86 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0277ec01-ea90-4398-b0b1-9911571c972b)
-    (property "Reference" "R24" (at 143.51 148.59 90)
+    (property "Reference" "R23" (at 143.51 148.59 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 149.86 90)
@@ -3576,7 +3576,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R24") (unit 1)
+          (reference "R23") (unit 1)
         )
       )
     )
@@ -3608,19 +3608,19 @@
     )
   )
 
-  (symbol (lib_id "Device:C") (at 193.04 25.4 0) (unit 1)
+  (symbol (lib_id "Device:C") (at 198.12 27.94 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0653b7a6-705b-402b-abe2-465e67995bf5)
-    (property "Reference" "C1" (at 193.04 22.86 0)
+    (property "Reference" "C2" (at 198.12 25.4 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10u" (at 193.04 27.94 0)
+    (property "Value" "10u" (at 198.12 30.48 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P2.50mm" (at 194.0052 29.21 0)
+    (property "Footprint" "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P2.50mm" (at 199.0852 31.75 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 193.04 25.4 0)
+    (property "Datasheet" "~" (at 198.12 27.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid aa0ea88a-959d-491f-9788-8f6383538c95))
@@ -3628,7 +3628,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C1") (unit 1)
+          (reference "C2") (unit 1)
         )
       )
     )
@@ -3637,7 +3637,7 @@
   (symbol (lib_id "Device:C_Polarized") (at 247.65 152.4 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 08f081aa-5208-4f20-a30e-c8c2e0ffe87c)
-    (property "Reference" "C19" (at 247.65 149.86 0)
+    (property "Reference" "C21" (at 247.65 149.86 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10u" (at 247.65 154.94 0)
@@ -3654,7 +3654,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C19") (unit 1)
+          (reference "C21") (unit 1)
         )
       )
     )
@@ -3663,7 +3663,7 @@
   (symbol (lib_id "Device:R") (at 146.05 144.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0a82c3b7-ad90-4559-9ba0-3adbf9572892)
-    (property "Reference" "R23" (at 147.32 142.24 90)
+    (property "Reference" "R22" (at 147.32 142.24 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 146.05 90)
@@ -3680,7 +3680,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R23") (unit 1)
+          (reference "R22") (unit 1)
         )
       )
     )
@@ -3695,7 +3695,7 @@
     (property "Value" "MCP6002-xSN" (at 262.89 97.8971 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 262.89 104.14 0)
+    (property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" (at 262.89 104.14 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" (at 262.89 104.14 0)
@@ -3721,7 +3721,7 @@
   (symbol (lib_id "Device:R") (at 166.37 109.22 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0ee4055d-9954-4bd5-b329-931c1f548848)
-    (property "Reference" "R15" (at 167.64 113.03 0)
+    (property "Reference" "R14" (at 167.64 113.03 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "R" (at 166.37 109.22 90)
@@ -3738,7 +3738,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R15") (unit 1)
+          (reference "R14") (unit 1)
         )
       )
     )
@@ -3747,7 +3747,7 @@
   (symbol (lib_id "power:GND") (at 172.72 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0ffe75a2-2b9e-4af7-b73e-266dc35625fd)
-    (property "Reference" "#PWR0122" (at 172.72 80.01 0)
+    (property "Reference" "#PWR027" (at 172.72 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 172.72 78.1034 0)
@@ -3763,7 +3763,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0122") (unit 1)
+          (reference "#PWR027") (unit 1)
         )
       )
     )
@@ -3772,7 +3772,7 @@
   (symbol (lib_id "Device:R") (at 161.29 104.14 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 10d580ed-35a6-4d3e-9b49-834d90f4451a)
-    (property "Reference" "R13" (at 165.1 102.87 90)
+    (property "Reference" "R12" (at 165.1 102.87 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "R" (at 161.29 104.14 90)
@@ -3789,7 +3789,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R13") (unit 1)
+          (reference "R12") (unit 1)
         )
       )
     )
@@ -3798,7 +3798,7 @@
   (symbol (lib_id "Device:R") (at 146.05 114.3 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 112506a8-1a24-43a6-a509-237ae1a68002)
-    (property "Reference" "R16" (at 147.32 111.76 90)
+    (property "Reference" "R15" (at 147.32 111.76 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 115.57 90)
@@ -3815,32 +3815,32 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R16") (unit 1)
+          (reference "R15") (unit 1)
         )
       )
     )
   )
 
-  (symbol (lib_id "power:GND") (at 193.04 29.21 0) (unit 1)
+  (symbol (lib_id "power:GND") (at 198.12 31.75 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 117f05b5-07b5-4a6b-835d-8c8461e4f1e3)
-    (property "Reference" "#PWR0106" (at 193.04 35.56 0)
+    (property "Reference" "#PWR05" (at 198.12 38.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Value" "GND" (at 193.04 33.6534 0)
+    (property "Value" "GND" (at 198.12 36.1934 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 193.04 29.21 0)
+    (property "Footprint" "" (at 198.12 31.75 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "" (at 193.04 29.21 0)
+    (property "Datasheet" "" (at 198.12 31.75 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid de072de2-d30e-44f4-b47a-cb309833eb68))
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0106") (unit 1)
+          (reference "#PWR05") (unit 1)
         )
       )
     )
@@ -3875,7 +3875,7 @@
   (symbol (lib_id "power:+5V") (at 172.72 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1275c396-759c-4a71-ac0a-49874c830c14)
-    (property "Reference" "#PWR0123" (at 172.72 69.85 0)
+    (property "Reference" "#PWR022" (at 172.72 69.85 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 172.72 62.4642 0)
@@ -3891,7 +3891,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0123") (unit 1)
+          (reference "#PWR022") (unit 1)
         )
       )
     )
@@ -3900,7 +3900,7 @@
   (symbol (lib_id "Device:C") (at 236.22 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1467c31c-8c8f-4931-9b53-7f2580a7e8ba)
-    (property "Reference" "C15" (at 236.22 104.14 0)
+    (property "Reference" "C17" (at 236.22 104.14 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "94p" (at 236.22 109.22 0)
@@ -3917,7 +3917,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C15") (unit 1)
+          (reference "C17") (unit 1)
         )
       )
     )
@@ -3926,7 +3926,7 @@
   (symbol (lib_id "power:GND") (at 27.94 100.33 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 150ff0a8-5f1d-42d0-a137-cad5a303959f)
-    (property "Reference" "#PWR0144" (at 27.94 106.68 0)
+    (property "Reference" "#PWR035" (at 27.94 106.68 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 27.94 104.7734 0)
@@ -3942,7 +3942,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0144") (unit 1)
+          (reference "#PWR035") (unit 1)
         )
       )
     )
@@ -3951,7 +3951,7 @@
   (symbol (lib_id "power:GND") (at 104.14 180.34 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1510ed52-937b-48c5-a54d-b02a2d86d3e0)
-    (property "Reference" "#PWR0140" (at 97.79 180.34 0)
+    (property "Reference" "#PWR055" (at 97.79 180.34 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 100.9651 180.7738 90)
@@ -3967,7 +3967,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0140") (unit 1)
+          (reference "#PWR055") (unit 1)
         )
       )
     )
@@ -4002,7 +4002,7 @@
   (symbol (lib_id "power:GND") (at 236.22 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2084e536-db98-4b3b-9fc7-17bc3da30dc7)
-    (property "Reference" "#PWR0127" (at 236.22 116.84 0)
+    (property "Reference" "#PWR040" (at 236.22 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 236.22 114.9334 0)
@@ -4018,7 +4018,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0127") (unit 1)
+          (reference "#PWR040") (unit 1)
         )
       )
     )
@@ -4027,7 +4027,7 @@
   (symbol (lib_id "Device:R") (at 139.7 139.7 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 24074ee3-6fc7-4fc2-9a32-a86c9c0111d0)
-    (property "Reference" "R22" (at 143.51 138.43 90)
+    (property "Reference" "R21" (at 143.51 138.43 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 139.7 90)
@@ -4044,7 +4044,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R22") (unit 1)
+          (reference "R21") (unit 1)
         )
       )
     )
@@ -4080,7 +4080,7 @@
   (symbol (lib_id "Device:R") (at 132.08 67.31 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 268dda7d-523b-4a72-8b82-c74147eef8d4)
-    (property "Reference" "R9" (at 133.35 63.5 90)
+    (property "Reference" "R8" (at 133.35 63.5 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10k" (at 132.08 67.31 90)
@@ -4097,7 +4097,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R9") (unit 1)
+          (reference "R8") (unit 1)
         )
       )
     )
@@ -4106,7 +4106,7 @@
   (symbol (lib_id "Device:R") (at 129.54 67.31 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 2a6c04ef-9fe2-45b2-b3cc-f64448d8f71d)
-    (property "Reference" "R8" (at 130.81 63.5 90)
+    (property "Reference" "R7" (at 130.81 63.5 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10k" (at 129.54 67.31 90)
@@ -4123,7 +4123,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R8") (unit 1)
+          (reference "R7") (unit 1)
         )
       )
     )
@@ -4138,7 +4138,7 @@
     (property "Value" "100k" (at 163.83 91.44 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 163.83 91.44 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" (at 163.83 91.44 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 163.83 91.44 0)
@@ -4185,7 +4185,7 @@
   (symbol (lib_id "power:+5V") (at 27.94 92.71 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 345908b5-1e65-4ff3-9434-cb5502e76b62)
-    (property "Reference" "#PWR0145" (at 27.94 96.52 0)
+    (property "Reference" "#PWR032" (at 27.94 96.52 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 27.94 89.1342 0)
@@ -4201,7 +4201,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0145") (unit 1)
+          (reference "#PWR032") (unit 1)
         )
       )
     )
@@ -4274,7 +4274,7 @@
   (symbol (lib_id "Device:R") (at 139.7 170.18 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 37b773cb-f1b5-4b95-be35-ab8fcaa4c4eb)
-    (property "Reference" "R28" (at 143.51 168.91 90)
+    (property "Reference" "R27" (at 143.51 168.91 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 170.18 90)
@@ -4291,7 +4291,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R28") (unit 1)
+          (reference "R27") (unit 1)
         )
       )
     )
@@ -4300,7 +4300,7 @@
   (symbol (lib_id "power:+5V") (at 177.8 41.91 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 39a27667-9a06-43f9-888d-1da279c89054)
-    (property "Reference" "#PWR0118" (at 181.61 41.91 0)
+    (property "Reference" "#PWR014" (at 181.61 41.91 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 174.6251 42.3438 90)
@@ -4316,7 +4316,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0118") (unit 1)
+          (reference "#PWR014") (unit 1)
         )
       )
     )
@@ -4331,7 +4331,7 @@
     (property "Value" "56m" (at 232.41 102.87 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Inductor_THT:L_Axial_L5.3mm_D2.2mm_P7.62mm_Horizontal_Vishay_IM-1" (at 229.87 101.6 0)
+    (property "Footprint" "Inductor_THT:L_Axial_L6.6mm_D2.7mm_P10.16mm_Horizontal_Vishay_IM-2" (at 229.87 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 229.87 101.6 0)
@@ -4351,7 +4351,7 @@
   (symbol (lib_id "Device:C") (at 26.67 66.04 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3adebde9-529b-4adc-93ce-09e4afed1fd9)
-    (property "Reference" "C6" (at 22.86 67.31 90)
+    (property "Reference" "C8" (at 22.86 67.31 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "18p" (at 22.86 64.77 90)
@@ -4368,7 +4368,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C6") (unit 1)
+          (reference "C8") (unit 1)
         )
       )
     )
@@ -4377,7 +4377,7 @@
   (symbol (lib_id "power:GND") (at 20.32 66.04 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3aefb146-c210-410d-b714-90e3a80c1eea)
-    (property "Reference" "#PWR0147" (at 13.97 66.04 0)
+    (property "Reference" "#PWR021" (at 13.97 66.04 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 17.1451 66.4738 90)
@@ -4393,7 +4393,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0147") (unit 1)
+          (reference "#PWR021") (unit 1)
         )
       )
     )
@@ -4402,7 +4402,7 @@
   (symbol (lib_id "Device:R") (at 262.89 134.62 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3cef5ddf-4983-49e9-b544-eadf3b750152)
-    (property "Reference" "R21" (at 266.7 133.35 90)
+    (property "Reference" "R20" (at 266.7 133.35 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "56k" (at 262.89 134.62 90)
@@ -4419,22 +4419,22 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R21") (unit 1)
+          (reference "R20") (unit 1)
         )
       )
     )
   )
 
-  (symbol (lib_id "Device:C") (at 270.51 121.92 0) (unit 1)
+  (symbol (lib_id "Device:C") (at 270.51 121.92 0) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3dc9b8bb-b00a-4e89-be1f-9211b414157b)
-    (property "Reference" "C17" (at 270.51 119.38 0)
+    (property "Reference" "C19" (at 270.51 124.46 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "C" (at 270.51 124.46 0)
+    (property "Value" "C" (at 270.51 119.38 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 271.4752 125.73 0)
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 271.4752 118.11 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 270.51 121.92 0)
@@ -4445,7 +4445,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C17") (unit 1)
+          (reference "C19") (unit 1)
         )
       )
     )
@@ -4454,7 +4454,7 @@
   (symbol (lib_id "power:+5V") (at 39.37 77.47 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3f7fc236-cec6-401d-898b-e5922ff18271)
-    (property "Reference" "#PWR0143" (at 43.18 77.47 0)
+    (property "Reference" "#PWR030" (at 43.18 77.47 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 36.1951 77.9038 90)
@@ -4470,7 +4470,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0143") (unit 1)
+          (reference "#PWR030") (unit 1)
         )
       )
     )
@@ -4479,13 +4479,13 @@
   (symbol (lib_id "Connector:Conn_01x04_Pin") (at 106.68 92.71 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 404f833f-0d19-42c7-b414-a2b4a9e94eaf)
-    (property "Reference" "J6" (at 109.22 100.33 0)
+    (property "Reference" "J4" (at 109.22 100.33 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "MatrixRows" (at 105.41 93.98 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" (at 106.68 92.71 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" (at 106.68 92.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 106.68 92.71 0)
@@ -4498,7 +4498,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "J6") (unit 1)
+          (reference "J4") (unit 1)
         )
       )
     )
@@ -4507,7 +4507,7 @@
   (symbol (lib_id "power:GND") (at 248.92 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 42e991a8-b448-46c5-bbb3-c38493d359d6)
-    (property "Reference" "#PWR0128" (at 248.92 116.84 0)
+    (property "Reference" "#PWR041" (at 248.92 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 248.92 114.9334 0)
@@ -4523,7 +4523,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0128") (unit 1)
+          (reference "#PWR041") (unit 1)
         )
       )
     )
@@ -4532,7 +4532,7 @@
   (symbol (lib_id "Device:R") (at 146.05 104.14 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 42f1b6f5-b948-46ee-987e-b369169badb5)
-    (property "Reference" "R12" (at 147.32 101.6 90)
+    (property "Reference" "R11" (at 147.32 101.6 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 105.41 90)
@@ -4549,7 +4549,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R12") (unit 1)
+          (reference "R11") (unit 1)
         )
       )
     )
@@ -4558,7 +4558,7 @@
   (symbol (lib_id "power:GND") (at 25.4 125.73 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4417813e-b4fc-4392-849d-2fc64f65d7ae)
-    (property "Reference" "#PWR0139" (at 19.05 125.73 0)
+    (property "Reference" "#PWR043" (at 19.05 125.73 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 22.2251 126.1638 90)
@@ -4574,13 +4574,13 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0139") (unit 1)
+          (reference "#PWR043") (unit 1)
         )
       )
     )
   )
 
-  (symbol (lib_id "Device:R_Potentiometer") (at 236.22 123.19 270) (unit 1)
+  (symbol (lib_id "Device:R_Potentiometer") (at 236.22 123.19 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4567b947-5e5e-4582-ad60-bc0eb47c40a1)
     (property "Reference" "VOLUME1" (at 236.22 120.1436 90)
@@ -4589,7 +4589,7 @@
     (property "Value" "1k" (at 236.22 123.19 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 236.22 123.19 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" (at 236.22 123.19 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 236.22 123.19 0)
@@ -4636,7 +4636,7 @@
   (symbol (lib_id "Device:R") (at 139.7 160.02 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4820dabe-4061-451d-bdfb-645e7d91c0a5)
-    (property "Reference" "R26" (at 143.51 158.75 90)
+    (property "Reference" "R25" (at 143.51 158.75 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 160.02 90)
@@ -4653,7 +4653,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R26") (unit 1)
+          (reference "R25") (unit 1)
         )
       )
     )
@@ -4690,7 +4690,7 @@
   (symbol (lib_id "power:+5V") (at 71.12 177.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 50f22635-8266-44e9-bd8a-b66c0d95beb2)
-    (property "Reference" "#PWR0156" (at 71.12 181.61 0)
+    (property "Reference" "#PWR052" (at 71.12 181.61 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 71.12 174.2242 0)
@@ -4706,7 +4706,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0156") (unit 1)
+          (reference "#PWR052") (unit 1)
         )
       )
     )
@@ -4747,7 +4747,7 @@
     (property "Value" "MENU" (at 55.88 30.48 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" (at 49.53 30.48 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" (at 49.53 30.48 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 49.53 30.48 0)
@@ -4793,7 +4793,7 @@
   (symbol (lib_id "power:GND") (at 223.52 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 59a282bb-b01d-43e3-85d6-3546c35e840f)
-    (property "Reference" "#PWR0113" (at 223.52 116.84 0)
+    (property "Reference" "#PWR039" (at 223.52 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 223.52 114.9334 0)
@@ -4809,7 +4809,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0113") (unit 1)
+          (reference "#PWR039") (unit 1)
         )
       )
     )
@@ -4818,7 +4818,7 @@
   (symbol (lib_id "Device:R") (at 146.05 175.26 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5da675c8-1faa-4bc9-8f14-5d162d3a78a3)
-    (property "Reference" "R29" (at 147.32 172.72 90)
+    (property "Reference" "R28" (at 147.32 172.72 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2k" (at 146.05 176.53 90)
@@ -4835,7 +4835,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R29") (unit 1)
+          (reference "R28") (unit 1)
         )
       )
     )
@@ -4850,7 +4850,7 @@
     (property "Value" "MCP6002-xSN" (at 209.55 96.52 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 203.2 91.44 0)
+    (property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" (at 203.2 91.44 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" (at 203.2 91.44 0)
@@ -4876,7 +4876,7 @@
   (symbol (lib_id "Device:R") (at 146.05 165.1 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5f10582b-a93a-4fcc-ac80-25492abb9900)
-    (property "Reference" "R27" (at 147.32 162.56 90)
+    (property "Reference" "R26" (at 147.32 162.56 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 166.37 90)
@@ -4893,7 +4893,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R27") (unit 1)
+          (reference "R26") (unit 1)
         )
       )
     )
@@ -4902,7 +4902,7 @@
   (symbol (lib_id "power:+5V") (at 96.52 177.8 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5f9f331a-3e32-4c1e-8c14-dfd8d9089234)
-    (property "Reference" "#PWR0141" (at 100.33 177.8 0)
+    (property "Reference" "#PWR053" (at 100.33 177.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 93.3451 178.2338 90)
@@ -4918,7 +4918,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0141") (unit 1)
+          (reference "#PWR053") (unit 1)
         )
       )
     )
@@ -4927,7 +4927,7 @@
   (symbol (lib_id "power:GND") (at 210.82 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5fd8e34e-6b53-4f38-9124-42d36c298c88)
-    (property "Reference" "#PWR0116" (at 210.82 116.84 0)
+    (property "Reference" "#PWR038" (at 210.82 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 210.82 114.9334 0)
@@ -4943,7 +4943,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0116") (unit 1)
+          (reference "#PWR038") (unit 1)
         )
       )
     )
@@ -4952,7 +4952,7 @@
   (symbol (lib_id "power:GND") (at 269.24 50.8 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 60e29589-dcff-4ef6-a3da-20d7933ada89)
-    (property "Reference" "#PWR0104" (at 262.89 50.8 0)
+    (property "Reference" "#PWR020" (at 262.89 50.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 266.0651 51.2338 90)
@@ -4968,7 +4968,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0104") (unit 1)
+          (reference "#PWR020") (unit 1)
         )
       )
     )
@@ -4977,7 +4977,7 @@
   (symbol (lib_id "Device:C") (at 59.69 30.48 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 61d02b25-04d4-434c-90aa-e29e78c1c82a)
-    (property "Reference" "C20" (at 59.69 27.94 0)
+    (property "Reference" "C4" (at 59.69 27.94 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 59.69 33.02 0)
@@ -4994,7 +4994,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C20") (unit 1)
+          (reference "C4") (unit 1)
         )
       )
     )
@@ -5009,7 +5009,7 @@
     (property "Value" "56m" (at 219.71 102.87 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Inductor_THT:L_Axial_L5.3mm_D2.2mm_P7.62mm_Horizontal_Vishay_IM-1" (at 217.17 101.6 0)
+    (property "Footprint" "Inductor_THT:L_Axial_L6.6mm_D2.7mm_P10.16mm_Horizontal_Vishay_IM-2" (at 217.17 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 217.17 101.6 0)
@@ -5029,7 +5029,7 @@
   (symbol (lib_id "Device:C") (at 223.52 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 644c50eb-86b1-4dd1-9dc3-e6eaa7f33e35)
-    (property "Reference" "C14" (at 223.52 104.14 0)
+    (property "Reference" "C16" (at 223.52 104.14 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "94p" (at 223.52 109.22 0)
@@ -5046,7 +5046,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C14") (unit 1)
+          (reference "C16") (unit 1)
         )
       )
     )
@@ -5055,7 +5055,7 @@
   (symbol (lib_id "power:GND") (at 177.8 44.45 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6706acef-6f08-41c8-b1a7-0baafa0a8edc)
-    (property "Reference" "#PWR0117" (at 171.45 44.45 0)
+    (property "Reference" "#PWR017" (at 171.45 44.45 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 174.6251 44.8838 90)
@@ -5071,7 +5071,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0117") (unit 1)
+          (reference "#PWR017") (unit 1)
         )
       )
     )
@@ -5080,7 +5080,7 @@
   (symbol (lib_id "Device:C") (at 248.92 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 67caed61-466c-4054-b62a-87319e36af9f)
-    (property "Reference" "C16" (at 248.92 104.14 0)
+    (property "Reference" "C18" (at 248.92 104.14 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "94p" (at 248.92 109.22 0)
@@ -5097,7 +5097,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C16") (unit 1)
+          (reference "C18") (unit 1)
         )
       )
     )
@@ -5106,7 +5106,7 @@
   (symbol (lib_id "Device:R") (at 146.05 134.62 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 6a3bd36b-cb7f-4723-b141-f2010799653d)
-    (property "Reference" "R20" (at 147.32 132.08 90)
+    (property "Reference" "R19" (at 147.32 132.08 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 135.89 90)
@@ -5123,7 +5123,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R20") (unit 1)
+          (reference "R19") (unit 1)
         )
       )
     )
@@ -5132,7 +5132,7 @@
   (symbol (lib_id "power:+5V") (at 130.81 41.91 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 6dedcca2-7186-4714-ab8d-cee069dc9eff)
-    (property "Reference" "#PWR0151" (at 130.81 38.1 0)
+    (property "Reference" "#PWR012" (at 130.81 38.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 129.54 45.72 0)
@@ -5148,7 +5148,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0151") (unit 1)
+          (reference "#PWR012") (unit 1)
         )
       )
     )
@@ -5157,7 +5157,7 @@
   (symbol (lib_id "power:GND") (at 166.37 113.03 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7137173f-426e-43fa-b440-3ef3853044e6)
-    (property "Reference" "#PWR0125" (at 166.37 119.38 0)
+    (property "Reference" "#PWR042" (at 166.37 119.38 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 166.37 117.4734 0)
@@ -5173,7 +5173,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0125") (unit 1)
+          (reference "#PWR042") (unit 1)
         )
       )
     )
@@ -5182,7 +5182,7 @@
   (symbol (lib_id "power:GND") (at 256.54 45.72 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 71fe69d3-66e6-4746-9aec-ed35907f62ed)
-    (property "Reference" "#PWR0103" (at 262.89 45.72 0)
+    (property "Reference" "#PWR018" (at 262.89 45.72 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 259.715 46.1538 90)
@@ -5198,7 +5198,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0103") (unit 1)
+          (reference "#PWR018") (unit 1)
         )
       )
     )
@@ -5321,7 +5321,7 @@
   (symbol (lib_id "Device:C") (at 198.12 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 73f33a7b-7bbe-43fd-a0ae-3bd4b9c5ad5d)
-    (property "Reference" "C12" (at 198.12 104.14 0)
+    (property "Reference" "C14" (at 198.12 104.14 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "94p" (at 198.12 109.22 0)
@@ -5338,7 +5338,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C12") (unit 1)
+          (reference "C14") (unit 1)
         )
       )
     )
@@ -5347,7 +5347,7 @@
   (symbol (lib_id "power:GND") (at 177.8 137.16 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 76c84ee3-afb9-4cb0-b9ca-1eb72798bdce)
-    (property "Reference" "#PWR0112" (at 177.8 143.51 0)
+    (property "Reference" "#PWR047" (at 177.8 143.51 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 177.8 141.6034 0)
@@ -5363,7 +5363,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0112") (unit 1)
+          (reference "#PWR047") (unit 1)
         )
       )
     )
@@ -5398,7 +5398,7 @@
   (symbol (lib_id "power:GND") (at 54.61 38.1 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7bdd2233-3fe0-4bec-8036-3672c6b13dd4)
-    (property "Reference" "#PWR0129" (at 54.61 44.45 0)
+    (property "Reference" "#PWR07" (at 54.61 44.45 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 54.61 42.5434 0)
@@ -5414,7 +5414,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0129") (unit 1)
+          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -5423,7 +5423,7 @@
   (symbol (lib_id "Device:C") (at 177.8 133.35 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7c3d5d13-885f-4df2-9850-72a42a52fed8)
-    (property "Reference" "C18" (at 177.8 130.81 0)
+    (property "Reference" "C20" (at 177.8 130.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 177.8 135.89 0)
@@ -5440,7 +5440,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C18") (unit 1)
+          (reference "C20") (unit 1)
         )
       )
     )
@@ -5449,7 +5449,7 @@
   (symbol (lib_id "power:PWR_FLAG") (at 59.69 177.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7edefa23-f8d5-458d-bd75-5fc79d612a7b)
-    (property "Reference" "#FLG0101" (at 59.69 175.895 0)
+    (property "Reference" "#FLG01" (at 59.69 175.895 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "PWR_FLAG" (at 59.69 174.2242 0)
@@ -5465,7 +5465,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#FLG0101") (unit 1)
+          (reference "#FLG01") (unit 1)
         )
       )
     )
@@ -5474,7 +5474,7 @@
   (symbol (lib_id "power:+5V") (at 101.6 41.91 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7f18f5c8-6b8c-4060-8c5a-5beb3c0190e6)
-    (property "Reference" "#PWR0133" (at 105.41 41.91 0)
+    (property "Reference" "#PWR010" (at 105.41 41.91 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 98.4251 42.3438 90)
@@ -5490,7 +5490,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0133") (unit 1)
+          (reference "#PWR010") (unit 1)
         )
       )
     )
@@ -5499,7 +5499,7 @@
   (symbol (lib_id "power:GND") (at 72.39 38.1 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 818e70fd-aa96-4a2a-9365-dc0784f77aa5)
-    (property "Reference" "#PWR0132" (at 72.39 44.45 0)
+    (property "Reference" "#PWR08" (at 72.39 44.45 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 72.39 42.5434 0)
@@ -5515,7 +5515,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0132") (unit 1)
+          (reference "#PWR08") (unit 1)
         )
       )
     )
@@ -5524,7 +5524,7 @@
   (symbol (lib_id "power:GND") (at 20.32 73.66 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 82453592-7b12-4e30-9324-9e953631150a)
-    (property "Reference" "#PWR0146" (at 13.97 73.66 0)
+    (property "Reference" "#PWR026" (at 13.97 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 17.1451 74.0938 90)
@@ -5540,7 +5540,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0146") (unit 1)
+          (reference "#PWR026") (unit 1)
         )
       )
     )
@@ -5549,7 +5549,7 @@
   (symbol (lib_id "power:+5V") (at 132.08 71.12 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8541b8b8-1012-4f90-b346-1a468c6d0fa2)
-    (property "Reference" "#PWR0153" (at 132.08 67.31 0)
+    (property "Reference" "#PWR025" (at 132.08 67.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 133.35 74.93 0)
@@ -5565,7 +5565,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0153") (unit 1)
+          (reference "#PWR025") (unit 1)
         )
       )
     )
@@ -5574,7 +5574,7 @@
   (symbol (lib_id "power:GND") (at 146.05 179.07 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 862d6a46-1367-4685-b3eb-9ed520bb55a4)
-    (property "Reference" "#PWR0137" (at 146.05 185.42 0)
+    (property "Reference" "#PWR054" (at 146.05 185.42 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 146.05 183.5134 0)
@@ -5590,7 +5590,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0137") (unit 1)
+          (reference "#PWR054") (unit 1)
         )
       )
     )
@@ -5599,7 +5599,7 @@
   (symbol (lib_id "Device:C_Polarized") (at 250.19 45.72 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 86d0ff13-4f6d-45e9-9b6d-4f81af81b3c3)
-    (property "Reference" "C5" (at 246.38 44.45 90)
+    (property "Reference" "C7" (at 246.38 44.45 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10u" (at 254 46.99 90)
@@ -5616,7 +5616,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C5") (unit 1)
+          (reference "C7") (unit 1)
         )
       )
     )
@@ -5631,7 +5631,7 @@
     (property "Value" "56m" (at 245.11 102.87 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Inductor_THT:L_Axial_L5.3mm_D2.2mm_P7.62mm_Horizontal_Vishay_IM-1" (at 242.57 101.6 0)
+    (property "Footprint" "Inductor_THT:L_Axial_L6.6mm_D2.7mm_P10.16mm_Horizontal_Vishay_IM-2" (at 242.57 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 242.57 101.6 0)
@@ -5651,7 +5651,7 @@
   (symbol (lib_id "power:+5V") (at 243.84 129.54 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8a0c3373-40a1-4db3-ba64-22155afecdf3)
-    (property "Reference" "#PWR0126" (at 243.84 133.35 0)
+    (property "Reference" "#PWR046" (at 243.84 133.35 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 243.84 125.9642 0)
@@ -5667,7 +5667,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0126") (unit 1)
+          (reference "#PWR046") (unit 1)
         )
       )
     )
@@ -5676,7 +5676,7 @@
   (symbol (lib_id "Device:R") (at 139.7 119.38 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8a492dc7-622f-48f4-8273-a2898d8a085e)
-    (property "Reference" "R17" (at 143.51 118.11 90)
+    (property "Reference" "R16" (at 143.51 118.11 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 119.38 90)
@@ -5693,32 +5693,32 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R17") (unit 1)
+          (reference "R16") (unit 1)
         )
       )
     )
   )
 
-  (symbol (lib_id "power:+5V") (at 193.04 21.59 0) (unit 1)
+  (symbol (lib_id "power:+5V") (at 198.12 24.13 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8a54c6b4-4c3a-49f9-8c7c-a69cf86c1719)
-    (property "Reference" "#PWR0107" (at 193.04 25.4 0)
+    (property "Reference" "#PWR03" (at 198.12 27.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Value" "+5V" (at 193.04 18.0142 0)
+    (property "Value" "+5V" (at 198.12 20.5542 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 193.04 21.59 0)
+    (property "Footprint" "" (at 198.12 24.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "" (at 193.04 21.59 0)
+    (property "Datasheet" "" (at 198.12 24.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid c7375d17-fc8a-4967-a785-4ab26c6c47e7))
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0107") (unit 1)
+          (reference "#PWR03") (unit 1)
         )
       )
     )
@@ -5767,7 +5767,7 @@
   (symbol (lib_id "power:+5V") (at 184.15 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8ed83237-24ed-4270-8d30-33f72e5d5f86)
-    (property "Reference" "#PWR0121" (at 184.15 69.85 0)
+    (property "Reference" "#PWR023" (at 184.15 69.85 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 184.15 62.4642 0)
@@ -5783,7 +5783,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0121") (unit 1)
+          (reference "#PWR023") (unit 1)
         )
       )
     )
@@ -5792,7 +5792,7 @@
   (symbol (lib_id "power:GND") (at 21.59 44.45 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8f1260fb-a359-46c0-8d74-ea6ab240fd0f)
-    (property "Reference" "#PWR0150" (at 21.59 50.8 0)
+    (property "Reference" "#PWR015" (at 21.59 50.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 21.59 48.8934 0)
@@ -5808,7 +5808,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0150") (unit 1)
+          (reference "#PWR015") (unit 1)
         )
       )
     )
@@ -5817,7 +5817,7 @@
   (symbol (lib_id "Device:C") (at 172.72 69.85 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8f80611b-cf19-4a78-be13-cec1675c0472)
-    (property "Reference" "C7" (at 172.72 67.31 0)
+    (property "Reference" "C9" (at 172.72 67.31 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100u" (at 172.72 72.39 0)
@@ -5834,7 +5834,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C7") (unit 1)
+          (reference "C9") (unit 1)
         )
       )
     )
@@ -5869,7 +5869,7 @@
   (symbol (lib_id "power:GND") (at 26.67 44.45 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 92c09287-4b5a-4a95-b1da-1920dd575652)
-    (property "Reference" "#PWR0149" (at 26.67 50.8 0)
+    (property "Reference" "#PWR016" (at 26.67 50.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 26.67 48.8934 0)
@@ -5885,7 +5885,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0149") (unit 1)
+          (reference "#PWR016") (unit 1)
         )
       )
     )
@@ -5894,7 +5894,7 @@
   (symbol (lib_id "Device:C") (at 26.67 73.66 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9358f2c3-f82d-4014-8c0d-c3538e550c7c)
-    (property "Reference" "C9" (at 22.86 74.93 90)
+    (property "Reference" "C11" (at 22.86 74.93 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "18p" (at 22.86 72.39 90)
@@ -5911,7 +5911,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C9") (unit 1)
+          (reference "C11") (unit 1)
         )
       )
     )
@@ -5920,7 +5920,7 @@
   (symbol (lib_id "power:GND") (at 116.84 41.91 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 96e5b767-df58-4ff9-88d9-3c34e46e53b0)
-    (property "Reference" "#PWR0136" (at 123.19 41.91 0)
+    (property "Reference" "#PWR011" (at 123.19 41.91 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 120.015 42.3438 90)
@@ -5936,7 +5936,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0136") (unit 1)
+          (reference "#PWR011") (unit 1)
         )
       )
     )
@@ -5945,7 +5945,7 @@
   (symbol (lib_id "power:GND") (at 39.37 34.29 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9afd3b34-f5a8-4e3e-a1c5-5b04d1bf702e)
-    (property "Reference" "#PWR0131" (at 39.37 40.64 0)
+    (property "Reference" "#PWR06" (at 39.37 40.64 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 39.37 38.7334 0)
@@ -5961,7 +5961,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0131") (unit 1)
+          (reference "#PWR06") (unit 1)
         )
       )
     )
@@ -5970,7 +5970,7 @@
   (symbol (lib_id "Connector:Screw_Terminal_01x02") (at 109.22 177.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9b9ba4fa-7600-4d55-9b1a-a1abefef884e)
-    (property "Reference" "J4" (at 111.252 178.2353 0)
+    (property "Reference" "J6" (at 111.252 178.2353 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "POWER" (at 111.252 180.7722 0)
@@ -5987,7 +5987,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "J4") (unit 1)
+          (reference "J6") (unit 1)
         )
       )
     )
@@ -5996,7 +5996,7 @@
   (symbol (lib_id "power:GND") (at 133.35 41.91 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9bc9b7e1-babb-4639-88d7-670234ab529f)
-    (property "Reference" "#PWR0152" (at 133.35 48.26 0)
+    (property "Reference" "#PWR013" (at 133.35 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 134.62 45.72 0)
@@ -6012,7 +6012,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0152") (unit 1)
+          (reference "#PWR013") (unit 1)
         )
       )
     )
@@ -6021,7 +6021,7 @@
   (symbol (lib_id "Connector:AudioJack2_Ground") (at 201.93 129.54 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9c44e0c4-9a11-491f-a099-b9a5341b659b)
-    (property "Reference" "J3" (at 201.295 122.0302 0)
+    (property "Reference" "J5" (at 201.295 122.0302 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "AudioJack2_Ground" (at 201.295 124.5671 0)
@@ -6033,13 +6033,13 @@
     (property "Datasheet" "~" (at 201.93 129.54 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "G" (uuid 1e7a0d5b-bc77-416d-9568-d58980071c35))
+    (pin "R" (uuid 1a4fb283-274e-4cf7-998f-80be4958aee1))
     (pin "S" (uuid daa11b95-c5ff-499c-b381-1c9203f89422))
     (pin "T" (uuid 48e851dd-0a89-48a5-a14d-181bde46477e))
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "J3") (unit 1)
+          (reference "J5") (unit 1)
         )
       )
     )
@@ -6048,7 +6048,7 @@
   (symbol (lib_id "Device:R") (at 139.7 129.54 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9d8c2c77-25cd-4ce9-8768-d014a06e4360)
-    (property "Reference" "R19" (at 143.51 128.27 90)
+    (property "Reference" "R18" (at 143.51 128.27 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 129.54 90)
@@ -6065,7 +6065,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R19") (unit 1)
+          (reference "R18") (unit 1)
         )
       )
     )
@@ -6074,7 +6074,7 @@
   (symbol (lib_id "power:+5V") (at 25.4 128.27 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a16b1097-9d47-4670-a823-8ea877b604bc)
-    (property "Reference" "#PWR0138" (at 29.21 128.27 0)
+    (property "Reference" "#PWR044" (at 29.21 128.27 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 22.2251 128.7038 90)
@@ -6090,7 +6090,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0138") (unit 1)
+          (reference "#PWR044") (unit 1)
         )
       )
     )
@@ -6099,7 +6099,7 @@
   (symbol (lib_id "power:GND") (at 59.69 177.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a1bc6568-e0de-4acd-962b-a27a1760b0cc)
-    (property "Reference" "#PWR0155" (at 59.69 184.15 0)
+    (property "Reference" "#PWR051" (at 59.69 184.15 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 59.69 182.2434 0)
@@ -6115,7 +6115,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0155") (unit 1)
+          (reference "#PWR051") (unit 1)
         )
       )
     )
@@ -6124,7 +6124,7 @@
   (symbol (lib_id "Device:C") (at 210.82 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a238b465-5d57-4a08-8aff-299d58add8c3)
-    (property "Reference" "C13" (at 210.82 104.14 0)
+    (property "Reference" "C15" (at 210.82 104.14 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "94p" (at 210.82 109.22 0)
@@ -6141,7 +6141,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C13") (unit 1)
+          (reference "C15") (unit 1)
         )
       )
     )
@@ -6150,7 +6150,7 @@
   (symbol (lib_id "Device:C") (at 77.47 30.48 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a2a18a88-7fce-4ebe-bd3d-f61db4ff6529)
-    (property "Reference" "C21" (at 77.47 27.94 0)
+    (property "Reference" "C5" (at 77.47 27.94 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 77.47 33.02 0)
@@ -6167,7 +6167,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C21") (unit 1)
+          (reference "C5") (unit 1)
         )
       )
     )
@@ -6182,7 +6182,7 @@
     (property "Value" "BACK" (at 73.66 30.48 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" (at 67.31 30.48 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" (at 67.31 30.48 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 67.31 30.48 0)
@@ -6234,7 +6234,7 @@
   (symbol (lib_id "power:PWR_FLAG") (at 71.12 177.8 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a9b82293-4d0d-44b9-8257-ab99d66ac291)
-    (property "Reference" "#FLG0102" (at 71.12 179.705 0)
+    (property "Reference" "#FLG02" (at 71.12 179.705 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "PWR_FLAG" (at 66.04 181.61 0)
@@ -6250,7 +6250,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#FLG0102") (unit 1)
+          (reference "#FLG02") (unit 1)
         )
       )
     )
@@ -6259,7 +6259,7 @@
   (symbol (lib_id "Device:R") (at 139.7 99.06 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ab43eaf3-fdad-42f0-9488-e942c64148c5)
-    (property "Reference" "R11" (at 143.51 97.79 90)
+    (property "Reference" "R10" (at 143.51 97.79 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 99.06 90)
@@ -6276,7 +6276,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R11") (unit 1)
+          (reference "R10") (unit 1)
         )
       )
     )
@@ -6317,7 +6317,7 @@
   (symbol (lib_id "power:GND") (at 243.84 144.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid afa1fc66-a88f-4eae-9b59-aa5aa074b8c6)
-    (property "Reference" "#PWR0114" (at 243.84 151.13 0)
+    (property "Reference" "#PWR048" (at 243.84 151.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 243.84 149.2234 0)
@@ -6333,7 +6333,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0114") (unit 1)
+          (reference "#PWR048") (unit 1)
         )
       )
     )
@@ -6342,7 +6342,7 @@
   (symbol (lib_id "power:GND") (at 247.65 156.21 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b17ecfb0-b277-4d34-8367-67aa61de4842)
-    (property "Reference" "#PWR0115" (at 247.65 162.56 0)
+    (property "Reference" "#PWR050" (at 247.65 162.56 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 247.65 160.6534 0)
@@ -6358,7 +6358,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0115") (unit 1)
+          (reference "#PWR050") (unit 1)
         )
       )
     )
@@ -6367,7 +6367,7 @@
   (symbol (lib_id "Device:C_Polarized") (at 250.19 38.1 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b4179377-d1c2-43eb-8b2f-a3417f74b0e7)
-    (property "Reference" "C4" (at 254 39.37 90)
+    (property "Reference" "C6" (at 254 39.37 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10u" (at 246.38 36.83 90)
@@ -6384,7 +6384,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C4") (unit 1)
+          (reference "C6") (unit 1)
         )
       )
     )
@@ -6393,7 +6393,7 @@
   (symbol (lib_id "power:+5V") (at 157.48 104.14 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b67ac579-acc2-48d8-a838-da0363d3db81)
-    (property "Reference" "#PWR0119" (at 161.29 104.14 0)
+    (property "Reference" "#PWR036" (at 161.29 104.14 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 154.3051 104.5738 90)
@@ -6409,7 +6409,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0119") (unit 1)
+          (reference "#PWR036") (unit 1)
         )
       )
     )
@@ -6418,7 +6418,7 @@
   (symbol (lib_id "power:GND") (at 223.52 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b9edf49b-36fa-449c-bd2f-8152ca7f7322)
-    (property "Reference" "#PWR0101" (at 223.52 85.09 0)
+    (property "Reference" "#PWR031" (at 223.52 85.09 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 223.52 83.1834 0)
@@ -6434,7 +6434,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0101") (unit 1)
+          (reference "#PWR031") (unit 1)
         )
       )
     )
@@ -6443,7 +6443,7 @@
   (symbol (lib_id "power:GND") (at 276.86 76.2 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ba98ae51-2d19-4ac8-9542-08be76600a86)
-    (property "Reference" "#PWR0102" (at 276.86 82.55 0)
+    (property "Reference" "#PWR029" (at 276.86 82.55 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 276.86 80.6434 0)
@@ -6459,7 +6459,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0102") (unit 1)
+          (reference "#PWR029") (unit 1)
         )
       )
     )
@@ -6474,7 +6474,7 @@
     (property "Value" "MCP6002-xSN" (at 179.07 106.68 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 175.26 101.6 0)
+    (property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" (at 175.26 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" (at 175.26 101.6 0)
@@ -6500,7 +6500,7 @@
   (symbol (lib_id "Device:C") (at 184.15 69.85 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid baef5284-3bb1-4a7c-8fd3-98ca208900f6)
-    (property "Reference" "C8" (at 184.15 67.31 0)
+    (property "Reference" "C10" (at 184.15 67.31 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100u" (at 184.15 72.39 0)
@@ -6517,7 +6517,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C8") (unit 1)
+          (reference "C10") (unit 1)
         )
       )
     )
@@ -6526,13 +6526,13 @@
   (symbol (lib_id "Connector:Conn_01x08_Pin") (at 100.33 92.71 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bb784fd3-ff07-49e3-8808-7fe6a19c8e0e)
-    (property "Reference" "J5" (at 101.6 85.09 90)
+    (property "Reference" "J3" (at 101.6 85.09 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "MatrixCols" (at 101.6 91.44 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" (at 100.33 92.71 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" (at 100.33 92.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 100.33 92.71 0)
@@ -6549,7 +6549,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "J5") (unit 1)
+          (reference "J3") (unit 1)
         )
       )
     )
@@ -6558,7 +6558,7 @@
   (symbol (lib_id "Device:R") (at 139.7 109.22 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c43ee629-4818-4cd0-9bec-3c88d43b7fc1)
-    (property "Reference" "R14" (at 143.51 107.95 90)
+    (property "Reference" "R13" (at 143.51 107.95 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "2k" (at 139.7 109.22 90)
@@ -6575,7 +6575,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R14") (unit 1)
+          (reference "R13") (unit 1)
         )
       )
     )
@@ -6584,7 +6584,7 @@
   (symbol (lib_id "power:+5V") (at 195.58 93.98 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c5071286-66fb-4223-8dec-341f0c3c5ac5)
-    (property "Reference" "#PWR0109" (at 199.39 93.98 0)
+    (property "Reference" "#PWR033" (at 199.39 93.98 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 190.5 93.98 90)
@@ -6600,7 +6600,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0109") (unit 1)
+          (reference "#PWR033") (unit 1)
         )
       )
     )
@@ -6609,7 +6609,7 @@
   (symbol (lib_id "power:+5V") (at 91.44 22.86 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cab63c86-ab31-4335-a187-9373163ac4d3)
-    (property "Reference" "#PWR0134" (at 91.44 26.67 0)
+    (property "Reference" "#PWR02" (at 91.44 26.67 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 91.44 19.2842 0)
@@ -6625,7 +6625,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0134") (unit 1)
+          (reference "#PWR02") (unit 1)
         )
       )
     )
@@ -6686,7 +6686,7 @@
   (symbol (lib_id "power:GND") (at 129.54 71.12 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d5f0ee9a-3f2c-44d9-9a06-b0d1043aa00c)
-    (property "Reference" "#PWR0154" (at 129.54 77.47 0)
+    (property "Reference" "#PWR024" (at 129.54 77.47 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 128.27 74.93 0)
@@ -6702,7 +6702,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0154") (unit 1)
+          (reference "#PWR024") (unit 1)
         )
       )
     )
@@ -6711,7 +6711,7 @@
   (symbol (lib_id "power:GND") (at 256.54 38.1 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d7b84512-98eb-4e46-abcb-bc50918def2d)
-    (property "Reference" "#PWR0108" (at 262.89 38.1 0)
+    (property "Reference" "#PWR09" (at 262.89 38.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 259.715 38.5338 90)
@@ -6727,7 +6727,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0108") (unit 1)
+          (reference "#PWR09") (unit 1)
         )
       )
     )
@@ -6736,7 +6736,7 @@
   (symbol (lib_id "power:GND") (at 91.44 30.48 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid dcb67d33-d144-47c2-8e28-3597388d29f6)
-    (property "Reference" "#PWR0135" (at 91.44 36.83 0)
+    (property "Reference" "#PWR04" (at 91.44 36.83 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 91.44 34.9234 0)
@@ -6752,7 +6752,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0135") (unit 1)
+          (reference "#PWR04") (unit 1)
         )
       )
     )
@@ -6761,7 +6761,7 @@
   (symbol (lib_id "power:+5V") (at 55.88 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid de418da5-03bd-4e3c-b921-626cabb1b283)
-    (property "Reference" "#PWR0130" (at 55.88 54.61 0)
+    (property "Reference" "#PWR019" (at 55.88 54.61 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 55.88 47.2242 0)
@@ -6777,7 +6777,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0130") (unit 1)
+          (reference "#PWR019") (unit 1)
         )
       )
     )
@@ -6786,7 +6786,7 @@
   (symbol (lib_id "power:+5V") (at 177.8 129.54 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e004941d-15a7-46a9-ab1e-4c4d7bc8bcb1)
-    (property "Reference" "#PWR0124" (at 177.8 133.35 0)
+    (property "Reference" "#PWR045" (at 177.8 133.35 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 177.8 125.9642 0)
@@ -6802,7 +6802,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0124") (unit 1)
+          (reference "#PWR045") (unit 1)
         )
       )
     )
@@ -6811,7 +6811,7 @@
   (symbol (lib_id "Device:R") (at 146.05 124.46 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e01b35f5-db4f-4649-b072-d70deca3d793)
-    (property "Reference" "R18" (at 147.32 121.92 90)
+    (property "Reference" "R17" (at 147.32 121.92 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 125.73 90)
@@ -6828,7 +6828,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R18") (unit 1)
+          (reference "R17") (unit 1)
         )
       )
     )
@@ -6837,7 +6837,7 @@
   (symbol (lib_id "Device:R") (at 181.61 91.44 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e1c24151-31de-46c1-904b-356e9d30da41)
-    (property "Reference" "R10" (at 185.42 90.17 90)
+    (property "Reference" "R9" (at 185.42 90.17 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "56k" (at 181.61 91.44 90)
@@ -6854,7 +6854,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R10") (unit 1)
+          (reference "R9") (unit 1)
         )
       )
     )
@@ -6863,7 +6863,7 @@
   (symbol (lib_id "Device:C") (at 91.44 26.67 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e31d9e34-762b-4450-af95-14f8bd518f16)
-    (property "Reference" "C2" (at 91.44 24.13 0)
+    (property "Reference" "C1" (at 91.44 24.13 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 91.44 29.21 0)
@@ -6880,7 +6880,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C2") (unit 1)
+          (reference "C1") (unit 1)
         )
       )
     )
@@ -6889,7 +6889,7 @@
   (symbol (lib_id "power:GND") (at 210.82 93.98 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e5432e29-8c45-4b2b-956b-6ba2e3a685e0)
-    (property "Reference" "#PWR0111" (at 217.17 93.98 0)
+    (property "Reference" "#PWR034" (at 217.17 93.98 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 213.995 94.4138 90)
@@ -6905,7 +6905,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0111") (unit 1)
+          (reference "#PWR034") (unit 1)
         )
       )
     )
@@ -6914,7 +6914,7 @@
   (symbol (lib_id "Device:C") (at 152.4 99.06 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e785c2ec-2fa7-4b3e-bfba-46bfd976d86f)
-    (property "Reference" "C11" (at 149.86 97.79 90)
+    (property "Reference" "C13" (at 149.86 97.79 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "C" (at 154.94 97.79 90)
@@ -6931,7 +6931,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C11") (unit 1)
+          (reference "C13") (unit 1)
         )
       )
     )
@@ -6946,7 +6946,7 @@
     (property "Value" "SSD1306" (at 34.29 125.73 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" (at 26.67 129.54 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" (at 26.67 129.54 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (at 26.67 129.54 0)
@@ -6968,7 +6968,7 @@
   (symbol (lib_id "Connector:DB9_Male_MountingHoles") (at 276.86 60.96 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e9937a0b-dd84-4d03-b0ee-f03042f72dbd)
-    (property "Reference" "J1" (at 276.86 48.26 0)
+    (property "Reference" "J2" (at 276.86 48.26 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SerialPort" (at 273.05 45.72 0)
@@ -6993,7 +6993,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "J1") (unit 1)
+          (reference "J2") (unit 1)
         )
       )
     )
@@ -7002,7 +7002,7 @@
   (symbol (lib_id "power:+5V") (at 223.52 17.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ee177ed6-9002-4c50-a407-8f6c3e54e0f7)
-    (property "Reference" "#PWR0105" (at 223.52 21.59 0)
+    (property "Reference" "#PWR01" (at 223.52 21.59 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 223.52 14.2042 0)
@@ -7018,7 +7018,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0105") (unit 1)
+          (reference "#PWR01") (unit 1)
         )
       )
     )
@@ -7059,13 +7059,13 @@
   (symbol (lib_id "Connector:Conn_01x06_Male") (at 182.88 44.45 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid f9ac89c8-6a71-4b48-b23b-9182245f0d78)
-    (property "Reference" "J2" (at 182.88 40.64 0)
+    (property "Reference" "J1" (at 182.88 40.64 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "PICkit2" (at 184.15 44.45 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" (at 182.88 44.45 0)
+    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Horizontal" (at 182.88 44.45 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 182.88 44.45 0)
@@ -7080,7 +7080,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "J2") (unit 1)
+          (reference "J1") (unit 1)
         )
       )
     )
@@ -7119,7 +7119,7 @@
   (symbol (lib_id "power:GND") (at 184.15 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid fcd9aea2-e437-48dc-8941-3abd13da083a)
-    (property "Reference" "#PWR0120" (at 184.15 80.01 0)
+    (property "Reference" "#PWR028" (at 184.15 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 184.15 78.1034 0)
@@ -7135,7 +7135,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0120") (unit 1)
+          (reference "#PWR028") (unit 1)
         )
       )
     )
@@ -7144,7 +7144,7 @@
   (symbol (lib_id "power:GND") (at 54.61 156.21 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid fd308438-9be6-48ab-aa06-696facab3cfa)
-    (property "Reference" "#PWR0142" (at 54.61 162.56 0)
+    (property "Reference" "#PWR049" (at 54.61 162.56 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 54.61 160.6534 0)
@@ -7160,7 +7160,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "#PWR0142") (unit 1)
+          (reference "#PWR049") (unit 1)
         )
       )
     )
@@ -7169,7 +7169,7 @@
   (symbol (lib_id "Device:C") (at 27.94 96.52 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ff0bd2a0-e7d1-4226-aeb5-4e9c644f741a)
-    (property "Reference" "C10" (at 27.94 93.98 0)
+    (property "Reference" "C12" (at 27.94 93.98 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 27.94 99.06 0)
@@ -7186,7 +7186,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "C10") (unit 1)
+          (reference "C12") (unit 1)
         )
       )
     )
@@ -7195,7 +7195,7 @@
   (symbol (lib_id "Device:R") (at 146.05 154.94 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ff7592b8-bdf7-47d7-9746-535889342049)
-    (property "Reference" "R25" (at 147.32 152.4 90)
+    (property "Reference" "R24" (at 147.32 152.4 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k" (at 146.05 156.21 90)
@@ -7212,7 +7212,7 @@
     (instances
       (project "FSharp32"
         (path "/e39530c9-181c-4f36-a0a9-369d5d87e3f5"
-          (reference "R25") (unit 1)
+          (reference "R24") (unit 1)
         )
       )
     )
@@ -7227,7 +7227,7 @@
     (property "Value" "56m" (at 207.01 102.87 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Inductor_THT:L_Axial_L5.3mm_D2.2mm_P7.62mm_Horizontal_Vishay_IM-1" (at 204.47 101.6 0)
+    (property "Footprint" "Inductor_THT:L_Axial_L6.6mm_D2.7mm_P10.16mm_Horizontal_Vishay_IM-2" (at 204.47 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 204.47 101.6 0)

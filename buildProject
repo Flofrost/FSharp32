@@ -1,7 +1,9 @@
 #!/bin/bash
 
+FILES="src/main.c"
+
 if [ ! -d "build" ]; then
     mkdir "build"
 fi
 
-avr-gcc -mmcu=atmega32 -o "build/fSharp32.elf" main.c || read 
+avr-gcc -mmcu=atmega32 -O2 -Wfatal-errors -o "build/fSharp32.elf" $FILES || read 

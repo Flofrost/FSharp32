@@ -45,7 +45,10 @@ void main(){
 
     init_SSD1306();
     clear_SSD1306();
-    printChar_SSD1306(0, 0, '"');
+    printStr_SSD1306(0, 0, "Florian!");
+    printStr_SSD1306(0, 1, "2845");
+    printStr_SSD1306(0, 2, "THE END IS NEVER");
+    printStr_SSD1306(32, 7, "BOTTOM TEXT");
 
     sei();
     

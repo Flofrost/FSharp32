@@ -21,5 +21,6 @@
 void init_SSD1306();
 void clear_SSD1306();
 void printChar_SSD1306(unsigned char x, unsigned char y, char c);
+void printStr_SSD1306(unsigned char x, unsigned char y, char* s);
 
 #endif

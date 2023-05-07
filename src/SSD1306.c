@@ -105,7 +105,8 @@ void init_SSD1306(){
     COMMAND_SSD1306(0xAF); // Turn ON
     COMMAND_SSD1306(0xA4); // Display RAM
     COMMAND_SSD1306(0xA6); // Non inverted
-    COMMAND_SSD1306(0xC8); // Flip Screen
+    COMMAND_SSD1306(0xA1); // Flip Screen
+    COMMAND_SSD1306(0xC8); // Mirror Screen
     COMMAND_SSD1306(0x20);
     COMMAND_SSD1306(0x02); // Page addressing mode
     COMMAND_SSD1306(0x8D);
@@ -168,7 +169,7 @@ void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
     for(unsigned char i = 0 ; s[i] ; i++){
         const char character = s[i] - 0x20;
         for(unsigned char col = 0 ; col < 5 ; col++){
-            I2C_WRITE(pgm_read_byte(&charmap[character][i]));
+            I2C_WRITE(pgm_read_byte(&charmap[character][col]));
             I2C_WAIT_TRASMISSION();
         }
         I2C_WRITE(0x00);

@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include "I2C.h"
+#include "SSD1306.h"
 
 #define changeInstrument(newInstrument) for(unsigned short i = 0 ; i < 256 ; i++) activeInstrument[i] = pgm_read_byte((newInstrument) + i)
 
@@ -38,59 +38,17 @@ void main(){
     // UBRRL = 0x08;
     
     TWBR = 64;
-    // PORTC = 0x03; // pullups for I2C
-    
 
     DDRA = 0xFF;
     
     changeInstrument(sinValues);
 
+    init_SSD1306();
+    clear_SSD1306();
+    printChar_SSD1306(0, 0, 'a');
+
     sei();
     
-    I2C_START();
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x78);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x00);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xAF);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x3F);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xD3);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x00);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x40);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xA0);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xC0);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xDA);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x02);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x81);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x7F);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xA4);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xA6);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xD5);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x80);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x8D);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0x14);
-    I2C_WAIT_TRASMISSION();
-    I2C_WRITE(0xAF);
-    I2C_WAIT_TRASMISSION();
-    I2C_STOP();
-
     while(1){
         // uartSendSTR("HELLO\n");
     }

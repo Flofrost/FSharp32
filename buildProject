@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES="src/main.c"
+FILES="src/main.c src/SSD1306.c"
 
 if [ ! -d "build" ]; then
     mkdir "build"

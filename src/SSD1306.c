@@ -1,4 +1,37 @@
 #include "SSD1306.h"
+#include <avr/pgmspace.h>
+
+
+const unsigned char charmap[95][5] PROGMEM = {
+    { // Space 0x20
+        0b00000000,
+        0b00000000,
+        0b00000000,
+        0b00000000,
+        0b00000000,
+    },
+    { // ! 0x21
+        0b00000000,
+        0b00000000,
+        0b01111010,
+        0b00000000,
+        0b00000000,
+    },
+    { // " 0x22
+        0b00000000,
+        0b01100000,
+        0b00000000,
+        0b01100000,
+        0b00000000,
+    },
+    { // # 0x23
+        0b00101000,
+        0b11111110,
+        0b00101000,
+        0b11111110,
+        0b00101000,
+    }
+};
 
 
 void init_SSD1306(){
@@ -32,18 +65,23 @@ void clear_SSD1306(){
 }
 
 void printChar_SSD1306(unsigned char x, unsigned char y, char c){
-    COMMAND_SSD1306(0x00);
-    COMMAND_SSD1306(0x10);
-    COMMAND_SSD1306(0xB0);
+    char character = c - 0x20;
+
+    COMMAND_SSD1306(0x00 | (x & 0x0F));
+    COMMAND_SSD1306(0x10 | (x >> 4));
+    COMMAND_SSD1306(0xB0 | (y & 0x07));
+
     I2C_START();
     I2C_WAIT_TRASMISSION();
     I2C_WRITE(ADDR_W_SSD1306);
     I2C_WAIT_TRASMISSION();
     I2C_WRITE(0x40);
     I2C_WAIT_TRASMISSION();
-    for(unsigned short i = 0; i < 128; i++){
-        I2C_WRITE(0x01);
+    for(unsigned short i = 0; i < 5; i++){
+        I2C_WRITE(charmap[character][i]);
         I2C_WAIT_TRASMISSION();
     }
+    I2C_WRITE(0x00);
+    I2C_WAIT_TRASMISSION();
     I2C_STOP();
 }

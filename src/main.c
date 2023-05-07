@@ -45,7 +45,7 @@ void main(){
 
     init_SSD1306();
     clear_SSD1306();
-    printChar_SSD1306(0, 0, 'a');
+    printChar_SSD1306(0, 0, '"');
 
     sei();
     

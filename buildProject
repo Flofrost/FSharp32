@@ -1,9 +1,17 @@
 #!/bin/bash
 
-FILES="src/main.c src/SSD1306.c"
+FILES="src/main.c src/SSD1306.c src/Modulator.c"
+OUTPUT="build/fSharp32.elf"
+
+readAndExit () {
+    read
+    exit 1
+}
 
 if [ ! -d "build" ]; then
     mkdir "build"
 fi
 
-avr-gcc -mmcu=atmega32 -O2 -Wfatal-errors -o "build/fSharp32.elf" $FILES || read 
+avr-gcc -mmcu=atmega32 -O2 -Wfatal-errors -o $OUTPUT $FILES || readAndExit
+avr-size -C --mcu=atmega32 $OUTPUT
+read

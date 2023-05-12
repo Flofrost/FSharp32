@@ -4,9 +4,13 @@
 #include "SSD1306.h"
 #include "Modulator.h"
 
-volatile unsigned short phase = 0;
-volatile unsigned short frequency = 1845;
-volatile char           vibrato = 0;
+volatile char vibrato = 0, tremolo = 0;
+
+volatile Voice voice = {
+    .phase = 0,
+    .frequency = 231,
+    .amplitude = 0x40
+};
 
 void uartSendINT8(const uint8_t x){
     while(!(UCSR0A & 0x20));
@@ -22,23 +26,45 @@ void uartSendSTR(const char* s){
 
 // SOUND GENERATOR
 ISR(TIMER2_COMPA_vect){      // 15625 Hz
-    PORTA = 127 + (activeInstrument[phase >> 8] >> 1);
-    phase += frequency + (vibrato << 5);
+    short sample = activeInstrument[voice.phase >> 8] >> 3;
+    sample *= voice.amplitude + (tremolo << 2);
+    sample >>= 6;
+    PORTA = 127 + sample;
+    voice.phase += voice.frequency + (vibrato << 5);
 }
 
 // thing
 ISR(TIMER1_OVF_vect){      // ~ 30 Hz
     sei();
-    // printStr_SSD1306(0, 0, "  ");
+
     if(VIBRATO){
-        // printStr_SSD1306(0, 0, "FM");
         vibrato >>= 1;
         vibrato += incrementsModulator;
         incrementsModulator = 0;
+        printStr_SSD1306(0, 7, "FM");
+    }else if(TREMOLO){
+        tremolo >>= 1;
+        tremolo += incrementsModulator;
+        incrementsModulator = 0;
+        printStr_SSD1306(0, 7, "AM");
+    }else printStr_SSD1306(0, 7, "  ");
+    
+    switch(OCTAVE){
+        case 0:
+            printStr_SSD1306(9, 0, "12");
+            break;
+        case 1:
+            printStr_SSD1306(9, 0, "34");
+            break;
+        case 2:
+            printStr_SSD1306(9, 0, "56");
+            break;
+        case 3:
+            printStr_SSD1306(9, 0, "78");
+            break;
     }
-    if(TREMOLO){
-        // printStr_SSD1306(0, 0, "AM");
-    }
+    
+    voice.frequency = 231 << (OCTAVE << 1);
 }
 
 
@@ -65,14 +91,13 @@ int main(){
     
     changeInstrument(sinValues);
 
-    // init_SSD1306();
-    // clear_SSD1306();
+    init_SSD1306();
+    clear_SSD1306();
+    printStr_SSD1306(0, 0, "OCTAVE : ");
 
-    // sei();
+    sei();
     
-    while(1){
-        PORTA = PINC;
-    }
+    while(1);
                   
     return 0;
 }

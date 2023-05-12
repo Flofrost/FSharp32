@@ -134,7 +134,8 @@ void clear_SSD1306(){
 }
 
 void printChar_SSD1306(unsigned char x, unsigned char y, char c){
-    const char character = c - 0x20;
+    c -= 0x20;
+    x *= 6;
 
     COMMAND_SSD1306(0x00 | (x & 0x0F));
     COMMAND_SSD1306(0x10 | (x >> 4));
@@ -147,7 +148,7 @@ void printChar_SSD1306(unsigned char x, unsigned char y, char c){
     I2C_WRITE(0x40);
     I2C_WAIT_TRASMISSION();
     for(unsigned char i = 0; i < 5; i++){
-        I2C_WRITE(pgm_read_byte(&charmap[character][i]));
+        I2C_WRITE(pgm_read_byte(&charmap[c][i]));
         I2C_WAIT_TRASMISSION();
     }
     I2C_WRITE(0x00);
@@ -156,6 +157,8 @@ void printChar_SSD1306(unsigned char x, unsigned char y, char c){
 }
 
 void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
+    x *= 6;
+    
     COMMAND_SSD1306(0x00 | (x & 0x0F));
     COMMAND_SSD1306(0x10 | (x >> 4));
     COMMAND_SSD1306(0xB0 | (y & 0x07));

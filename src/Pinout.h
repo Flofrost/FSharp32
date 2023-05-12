@@ -9,4 +9,6 @@
 #define VIBRATO !(PINC & 0x10)
 #define TREMOLO !(PINC & 0x20)
 
+#define OCTAVE ((PINC >> 2) & 0x03)
+
 #endif

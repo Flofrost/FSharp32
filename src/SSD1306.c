@@ -179,8 +179,24 @@ void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
     I2C_STOP();
 }
 
-// void printInt_SSD1306(unsigned char x, unsigned char y, int v){
-//     char stringBuffer[10];
-//     sprintf(stringBuffer, "%d", v);
-//     printStr_SSD1306(x, y, stringBuffer);
-// }
+void printUInt8_SSD1306(unsigned char x, unsigned char y, unsigned char v, char filler){
+    char stringBuffer[4];
+    unsigned char numBuffer;
+    unsigned char index = 0, ok = 0;
+
+    if(numBuffer = v / 100){
+        stringBuffer[index++] = numBuffer + 0x30;
+        if(!ok) ok = 1;
+    }else if(filler) stringBuffer[index++] = filler;
+
+    if((numBuffer = (v / 10) % 10) || ok){
+        stringBuffer[index++] = numBuffer + 0x30;
+        if(!ok) ok = 1;
+    }else if(filler) stringBuffer[index++] = filler;
+
+    stringBuffer[index++] = (v % 10) + 0x30;
+
+    stringBuffer[index] = 0;
+
+    printStr_SSD1306(x, y, stringBuffer);
+}

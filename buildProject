@@ -12,6 +12,6 @@ if [ ! -d "build" ]; then
     mkdir "build"
 fi
 
-avr-gcc -mmcu=atmega32 -O2 -Wfatal-errors -o $OUTPUT $FILES || readAndExit
-avr-size -C --mcu=atmega32 $OUTPUT
+avr-gcc -mmcu=atmega1284 -O2 -Wfatal-errors -o $OUTPUT $FILES || readAndExit
+avr-size -C --mcu=atmega1284 $OUTPUT
 read

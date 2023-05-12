@@ -8,7 +8,7 @@
             "defines": [],
             "compilerPath": "/usr/bin/avr-gcc",
             "compilerArgs": [
-                "-mmcu=atmega32"
+                "-mmcu=atmega1284"
             ],  
             "cStandard": "gnu11",
             "cppStandard": "gnu++17",

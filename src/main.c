@@ -28,19 +28,17 @@ ISR(TIMER2_COMPA_vect){      // 15625 Hz
 
 // thing
 ISR(TIMER1_OVF_vect){      // ~ 30 Hz
-    // sei();
-    printStr_SSD1306(0, 0, "  ");
+    sei();
+    // printStr_SSD1306(0, 0, "  ");
     if(VIBRATO){
-        printStr_SSD1306(0, 0, "FM");
+        // printStr_SSD1306(0, 0, "FM");
         vibrato >>= 1;
         vibrato += incrementsModulator;
         incrementsModulator = 0;
     }
     if(TREMOLO){
-        printStr_SSD1306(0, 0, "AM");
+        // printStr_SSD1306(0, 0, "AM");
     }
-    printUInt8_SSD1306(0, 1, PINC, 0);
-    printUInt8_SSD1306(0, 2, MCUSR, 0);
 }
 
 
@@ -59,18 +57,22 @@ int main(){
 
     UCSR0B = 0x18;
     UBRR0L = 0x08; // Uart setup 115200 baud
+        
+    TWBR = 16;
     
     DDRA = 0xFF; // Output mode for DAC
     PORTC = 0xFC; // Pullups on most of port c for buttons and switches
     
     changeInstrument(sinValues);
 
-    init_SSD1306();
-    clear_SSD1306();
+    // init_SSD1306();
+    // clear_SSD1306();
 
-    sei();
+    // sei();
     
-    while(1) sei();
+    while(1){
+        PORTA = PINC;
+    }
                   
     return 0;
 }

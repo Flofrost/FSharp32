@@ -1,5 +1,4 @@
 #include "SSD1306.h"
-// #include <stdio.h>
 #include <avr/pgmspace.h>
 
 // <------  Down

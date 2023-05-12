@@ -3,6 +3,6 @@
 
 #include <avr/interrupt.h>
 
-extern volatile char increments;
+extern volatile char incrementsModulator;
 
 #endif

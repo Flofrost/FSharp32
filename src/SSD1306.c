@@ -1,5 +1,5 @@
 #include "SSD1306.h"
-#include <stdio.h>
+// #include <stdio.h>
 #include <avr/pgmspace.h>
 
 // <------  Down
@@ -179,8 +179,8 @@ void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
     I2C_STOP();
 }
 
-void printInt_SSD1306(unsigned char x, unsigned char y, int v){
-    char stringBuffer[10];
-    sprintf(stringBuffer, "%d", v);
-    printStr_SSD1306(x, y, stringBuffer);
-}
+// void printInt_SSD1306(unsigned char x, unsigned char y, int v){
+//     char stringBuffer[10];
+//     sprintf(stringBuffer, "%d", v);
+//     printStr_SSD1306(x, y, stringBuffer);
+// }

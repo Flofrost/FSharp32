@@ -5,11 +5,7 @@
 
 volatile int8_t vibrato = 0, tremolo = 0;
 
-volatile Voice voice = {
-    .phase = 0,
-    .frequency = 231,
-    .amplitude = 0x40
-};
+volatile Voice voices[4] = {voiceDefaults, voiceDefaults, voiceDefaults, voiceDefaults};
 
 void uartSendINT8(const uint8_t x){
     while(!(UCSR0A & 0x20));
@@ -25,15 +21,26 @@ void uartSendSTR(const char* s){
 
 // SOUND GENERATOR
 ISR(TIMER2_COMPA_vect){      // 15625 Hz
-    int16_t sample = activeInstrument[voice.phase >> 8] >> 3;
-    sample *= voice.amplitude + (tremolo << 2);
-    sample >>= 6;
+    int8_t sample = 0;
+    int16_t voiceSample;
+
+    for(uint8_t i = 0 ; i < 4 ; i++)
+        if(voices[0].stage != off){
+            voiceSample = activeInstrument[voices[0].phase >> 8] >> 3;
+            voiceSample *= voices[0].amplitude + (tremolo << 2);
+            voiceSample >>= 6;
+
+            sample += voiceSample >> 8;
+
+            voices[0].phase += voices[0].frequency + (vibrato << 5);
+        }
+
     PORTA = 127 + sample;
-    voice.phase += voice.frequency + (vibrato << 5);
 }
 
 // thing
-ISR(TIMER1_OVF_vect){      // ~ 30 Hz
+ISR(TIMER1_COMPA_vect){      // ~ 61 Hz
+    static uint32_t keyboardState = 0, keyboardPreviousState = 0;
     sei();
 
     if(VIBRATO){
@@ -62,11 +69,31 @@ ISR(TIMER1_OVF_vect){      // ~ 30 Hz
             printStr_SSD1306(9, 0, "78");
             break;
     }
-    
-    voice.frequency = 231 << (OCTAVE << 1);
 
-    readKeyboard();
+    readKeyboard(&keyboardState);
     printHex32_SSD1306(0, 1, keyboardState);
+    
+    if(keyboardState != keyboardPreviousState){
+        uint32_t presses = keyboardState ^ keyboardPreviousState;
+        uint32_t releases = (~keyboardState) & presses;
+        presses = keyboardState & presses;
+
+        if(presses)
+            for(uint8_t i = 0 ; i < 32 ; i++)
+                if((presses >> i) & 0x01){
+                    voices[0].stage = attack;
+                    voices[0].frequency = pgm_read_word(&noteFrequencies[OCTAVE][i]);
+                    voices[0].amplitude = 0x40;
+                }
+
+        if(releases)
+            for(uint8_t i = 0 ; i < 32 ; i++)
+                if((releases >> i) & 0x01){
+                    voices[0].stage = off;
+                }
+
+        keyboardPreviousState = keyboardState;
+    }
 }
 
 
@@ -77,8 +104,9 @@ int main(){
     OCR2A  = 127;
     TIMSK2 = 0x02; // output sample at roughly 15 kHz
 
-    TCCR1B = 0x02; 
-    TIMSK1 = 0x01; // interrput at rougly 30 Hz
+    TCCR1B = 0x0A; 
+    OCR1A  = 0x7FFF;
+    TIMSK1 = 0x02; // interrput at rougly 61 Hz
     
     EICRA = 0x0F;
     EIMSK = 0x03; // Enable INT0 and INT1

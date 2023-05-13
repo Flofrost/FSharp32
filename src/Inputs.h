@@ -15,8 +15,7 @@
 #define OCTAVE ((PINC >> 2) & 0x03)
 
 extern volatile int8_t incrementsModulator;
-extern volatile uint32_t keyboardState;
 
-void readKeyboard();
+void readKeyboard(uint32_t* keyboardState);
 
 #endif

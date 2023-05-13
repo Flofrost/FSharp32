@@ -21,10 +21,11 @@
         {
             "label": "Upload",
             "type": "shell",
-            "command": "avrdude",
+            "command": "sudo",
             "args": [
+                "avrdude",
                 "-p",
-                "m32",
+                "m1284",
                 "-c",
                 "pickit2",
                 "-U",

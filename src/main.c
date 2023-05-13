@@ -28,11 +28,9 @@ ISR(TIMER2_COMPA_vect){      // 15625 Hz
         if(voices[0].stage != off){
             voiceSample = activeInstrument[voices[0].phase >> 8] >> 3;
             voiceSample *= voices[0].amplitude + (tremolo << 2);
-            voiceSample >>= 6;
+            sample += voiceSample >> 6;
 
-            sample += voiceSample >> 8;
-
-            voices[0].phase += voices[0].frequency + (vibrato << 5);
+            voices[0].phase += voices[0].frequency + (vibrato << 3);
         }
 
     PORTA = 127 + sample;
@@ -71,8 +69,6 @@ ISR(TIMER1_COMPA_vect){      // ~ 61 Hz
     }
 
     readKeyboard(&keyboardState);
-    printHex32_SSD1306(0, 1, keyboardState);
-    
     if(keyboardState != keyboardPreviousState){
         uint32_t presses = keyboardState ^ keyboardPreviousState;
         uint32_t releases = (~keyboardState) & presses;
@@ -93,6 +89,7 @@ ISR(TIMER1_COMPA_vect){      // ~ 61 Hz
                 }
 
         keyboardPreviousState = keyboardState;
+        printHex8_SSD1306(0, 1, OCTAVE);
     }
 }
 

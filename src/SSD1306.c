@@ -2,7 +2,7 @@
 #include <avr/pgmspace.h>
 
 // <------  Down
-const unsigned char charmap[95][5] PROGMEM = {
+const uint8_t charmap[95][5] PROGMEM = {
     {0x00, 0x00, 0x00, 0x00, 0x00},            // Code for char Space
     {0x00, 0x00, 0x5F, 0x00, 0x00},            // Code for char !
     {0x00, 0x06, 0x00, 0x06, 0x00},            // Code for char "
@@ -100,6 +100,8 @@ const unsigned char charmap[95][5] PROGMEM = {
     {0x08, 0x04, 0x08, 0x10, 0x08},            // Code for char ~
 };
 
+const int8_t hexChars[16] PROGMEM = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
 
 void init_SSD1306(){
     COMMAND_SSD1306(0xAF); // Turn ON
@@ -114,7 +116,7 @@ void init_SSD1306(){
 }
 
 void clear_SSD1306(){
-    for(unsigned char page = 0 ; page < 8 ; page++){
+    for(uint8_t page = 0 ; page < 8 ; page++){
         COMMAND_SSD1306(0x00);
         COMMAND_SSD1306(0x10);
         COMMAND_SSD1306(0xB0 | page);
@@ -125,7 +127,7 @@ void clear_SSD1306(){
         I2C_WAIT_TRASMISSION();
         I2C_WRITE(0x40);
         I2C_WAIT_TRASMISSION();
-        for(unsigned short i = 0; i < 128; i++){
+        for(uint16_t i = 0; i < 128; i++){
             I2C_WRITE(0x00);
             I2C_WAIT_TRASMISSION();
         }
@@ -133,7 +135,7 @@ void clear_SSD1306(){
     }
 }
 
-void printChar_SSD1306(unsigned char x, unsigned char y, char c){
+void printChar_SSD1306(uint8_t x, uint8_t y, int8_t c){
     c -= 0x20;
     x *= 6;
 
@@ -147,7 +149,7 @@ void printChar_SSD1306(unsigned char x, unsigned char y, char c){
     I2C_WAIT_TRASMISSION();
     I2C_WRITE(0x40);
     I2C_WAIT_TRASMISSION();
-    for(unsigned char i = 0; i < 5; i++){
+    for(uint8_t i = 0; i < 5; i++){
         I2C_WRITE(pgm_read_byte(&charmap[c][i]));
         I2C_WAIT_TRASMISSION();
     }
@@ -156,7 +158,7 @@ void printChar_SSD1306(unsigned char x, unsigned char y, char c){
     I2C_STOP();
 }
 
-void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
+void printStr_SSD1306(uint8_t x, uint8_t y, char* s){
     x *= 6;
     
     COMMAND_SSD1306(0x00 | (x & 0x0F));
@@ -169,9 +171,9 @@ void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
     I2C_WAIT_TRASMISSION();
     I2C_WRITE(0x40);
     I2C_WAIT_TRASMISSION();
-    for(unsigned char i = 0 ; s[i] ; i++){
-        const char character = s[i] - 0x20;
-        for(unsigned char col = 0 ; col < 5 ; col++){
+    for(uint8_t i = 0 ; s[i] ; i++){
+        const int8_t character = s[i] - 0x20;
+        for(uint8_t col = 0 ; col < 5 ; col++){
             I2C_WRITE(pgm_read_byte(&charmap[character][col]));
             I2C_WAIT_TRASMISSION();
         }
@@ -181,10 +183,10 @@ void printStr_SSD1306(unsigned char x, unsigned char y, char* s){
     I2C_STOP();
 }
 
-void printUInt8_SSD1306(unsigned char x, unsigned char y, unsigned char v, char filler){
-    char stringBuffer[4];
-    unsigned char numBuffer;
-    unsigned char index = 0, ok = 0;
+void printUInt8_SSD1306(uint8_t x, uint8_t y, uint8_t v, int8_t filler){
+    int8_t stringBuffer[4];
+    uint8_t numBuffer;
+    uint8_t index = 0, ok = 0;
 
     if(numBuffer = v / 100){
         stringBuffer[index++] = numBuffer + 0x30;
@@ -199,6 +201,44 @@ void printUInt8_SSD1306(unsigned char x, unsigned char y, unsigned char v, char 
     stringBuffer[index++] = (v % 10) + 0x30;
 
     stringBuffer[index] = 0;
+
+    printStr_SSD1306(x, y, stringBuffer);
+}
+
+void printHex8_SSD1306(uint8_t x, uint8_t y, uint8_t v){
+    int8_t stringBuffer[3];
+
+    stringBuffer[0] = pgm_read_byte(&hexChars[(v >> 4) & 0x0F]);
+    stringBuffer[1] = pgm_read_byte(&hexChars[v & 0x0F]);
+    stringBuffer[2] = 0;
+
+    printStr_SSD1306(x, y, stringBuffer);
+}
+
+void printHex16_SSD1306(uint8_t x, uint8_t y, uint16_t v){
+    int8_t stringBuffer[5];
+
+    stringBuffer[0] = pgm_read_byte(&hexChars[(v >> 12) & 0x0F]);
+    stringBuffer[1] = pgm_read_byte(&hexChars[(v >> 8) & 0x0F]);
+    stringBuffer[2] = pgm_read_byte(&hexChars[(v >> 4) & 0x0F]);
+    stringBuffer[3] = pgm_read_byte(&hexChars[v & 0x0F]);
+    stringBuffer[4] = 0;
+
+    printStr_SSD1306(x, y, stringBuffer);
+}
+
+void printHex32_SSD1306(uint8_t x, uint8_t y, uint32_t v){
+    int8_t stringBuffer[9];
+
+    stringBuffer[0] = pgm_read_byte(&hexChars[(v >> 28) & 0x0F]);
+    stringBuffer[1] = pgm_read_byte(&hexChars[(v >> 24) & 0x0F]);
+    stringBuffer[2] = pgm_read_byte(&hexChars[(v >> 20) & 0x0F]);
+    stringBuffer[3] = pgm_read_byte(&hexChars[(v >> 16) & 0x0F]);
+    stringBuffer[4] = pgm_read_byte(&hexChars[(v >> 12) & 0x0F]);
+    stringBuffer[5] = pgm_read_byte(&hexChars[(v >> 8) & 0x0F]);
+    stringBuffer[6] = pgm_read_byte(&hexChars[(v >> 4) & 0x0F]);
+    stringBuffer[7] = pgm_read_byte(&hexChars[v & 0x0F]);
+    stringBuffer[8] = 0;
 
     printStr_SSD1306(x, y, stringBuffer);
 }

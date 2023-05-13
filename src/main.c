@@ -1,10 +1,9 @@
 #include <avr/interrupt.h>
-#include "Pinout.h"
+#include "Inputs.h"
 #include "Instruments.h"
 #include "SSD1306.h"
-#include "Modulator.h"
 
-volatile char vibrato = 0, tremolo = 0;
+volatile int8_t vibrato = 0, tremolo = 0;
 
 volatile Voice voice = {
     .phase = 0,
@@ -26,7 +25,7 @@ void uartSendSTR(const char* s){
 
 // SOUND GENERATOR
 ISR(TIMER2_COMPA_vect){      // 15625 Hz
-    short sample = activeInstrument[voice.phase >> 8] >> 3;
+    int16_t sample = activeInstrument[voice.phase >> 8] >> 3;
     sample *= voice.amplitude + (tremolo << 2);
     sample >>= 6;
     PORTA = 127 + sample;
@@ -65,6 +64,9 @@ ISR(TIMER1_OVF_vect){      // ~ 30 Hz
     }
     
     voice.frequency = 231 << (OCTAVE << 1);
+
+    readKeyboard();
+    printHex32_SSD1306(0, 1, keyboardState);
 }
 
 
@@ -88,6 +90,7 @@ int main(){
     
     DDRA = 0xFF; // Output mode for DAC
     PORTC = 0xFC; // Pullups on most of port c for buttons and switches
+    PORTB = 0xFF; // Pullups for key matrix
     
     changeInstrument(sinValues);
 

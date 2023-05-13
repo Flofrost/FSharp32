@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES="src/main.c src/SSD1306.c src/Modulator.c"
+FILES="src/main.c src/SSD1306.c src/Inputs.c"
 OUTPUT="build/fSharp32.elf"
 
 readAndExit () {

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-FILES="src/main.c src/SSD1306.c src/Inputs.c"
+FILES="src/main.c src/SSD1306.c src/Inputs.c src/Voices.c"
 OUTPUT="build/fSharp32.elf"
+MCU="atmega1284"
+FLAGS="-O3 -Wfatal-errors"
 
 readAndExit () {
     read
@@ -12,6 +14,11 @@ if [ ! -d "build" ]; then
     mkdir "build"
 fi
 
-avr-gcc -mmcu=atmega1284 -O2 -Wfatal-errors -o $OUTPUT $FILES || readAndExit
+avr-gcc -mmcu=$MCU $FLAGS -o $OUTPUT $FILES || readAndExit
 avr-size -C --mcu=atmega1284 $OUTPUT
+
+read
+
+sudo avrdude -p m1284 -c pickit2 -B 400kHz -U flash:w:build/fSharp32.elf:a
+
 read

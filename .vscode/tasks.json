@@ -17,30 +17,6 @@
                 "clear": true,
                 "close": true
             }
-        },
-        {
-            "label": "Upload",
-            "type": "shell",
-            "command": "sudo",
-            "args": [
-                "avrdude",
-                "-p",
-                "m1284",
-                "-c",
-                "pickit2",
-                "-U",
-                "flash:w:build/fSharp32.elf:a"
-            ],
-            "problemMatcher": [],
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": true,
-                "panel": "dedicated",
-                "showReuseMessage": false,
-                "clear": true,
-                "close": true
-            }
         }
     ]
 }

@@ -188,12 +188,12 @@ void printUInt8_SSD1306(uint8_t x, uint8_t y, uint8_t v, int8_t filler){
     uint8_t numBuffer;
     uint8_t index = 0, ok = 0;
 
-    if(numBuffer = v / 100){
+    if(numBuffer = (v / 100)){
         stringBuffer[index++] = numBuffer + 0x30;
         if(!ok) ok = 1;
     }else if(filler) stringBuffer[index++] = filler;
 
-    if((numBuffer = (v / 10) % 10) || ok){
+    if((numBuffer = ((v / 10) % 10)) || ok){
         stringBuffer[index++] = numBuffer + 0x30;
         if(!ok) ok = 1;
     }else if(filler) stringBuffer[index++] = filler;

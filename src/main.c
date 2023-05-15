@@ -1,11 +1,16 @@
 #include <avr/interrupt.h>
-#include "Inputs.h"
 #include "Instruments.h"
+#include "Inputs.h"
+#include "Voices.h"
 #include "SSD1306.h"
+
+
+#define N_KEYS 32
 
 volatile int8_t vibrato = 0, tremolo = 0;
 
-volatile Voice voices[4] = {voiceDefaults, voiceDefaults, voiceDefaults, voiceDefaults};
+uint8_t keyToVoiceMap[32];
+volatile Voice voices[N_VOICES];
 
 void uartSendINT8(const uint8_t x){
     while(!(UCSR0A & 0x20));
@@ -21,16 +26,15 @@ void uartSendSTR(const char* s){
 
 // SOUND GENERATOR
 ISR(TIMER2_COMPA_vect){      // 15625 Hz
-    int8_t sample = 0;
-    int16_t voiceSample;
+    int8_t sample = 0, voiceSample;
 
-    for(uint8_t i = 0 ; i < 4 ; i++)
-        if(voices[0].stage != off){
-            voiceSample = activeInstrument[voices[0].phase >> 8] >> 3;
-            voiceSample *= voices[0].amplitude + (tremolo << 2);
-            sample += voiceSample >> 6;
+    for(uint8_t i = 0 ; i < N_VOICES ; i++)
+        if(voices[i].stage != off){
+            voiceSample = activeInstrument[voices[i].phase >> 8] >> 2;
+            voiceSample = (voiceSample * (voices[i].amplitude + (tremolo << 3))) >> 7;
+            sample += voiceSample;
 
-            voices[0].phase += voices[0].frequency + (vibrato << 3);
+            voices[i].phase += voices[i].frequency + (vibrato << 4);
         }
 
     PORTA = 127 + sample;
@@ -53,7 +57,8 @@ ISR(TIMER1_COMPA_vect){      // ~ 61 Hz
         printStr_SSD1306(0, 7, "AM");
     }else printStr_SSD1306(0, 7, "  ");
     
-    switch(OCTAVE){
+    uint8_t octave = OCTAVE;
+    switch(octave){
         case 0:
             printStr_SSD1306(9, 0, "12");
             break;
@@ -75,21 +80,27 @@ ISR(TIMER1_COMPA_vect){      // ~ 61 Hz
         presses = keyboardState & presses;
 
         if(presses)
-            for(uint8_t i = 0 ; i < 32 ; i++)
+            for(uint8_t i = 0 ; i < N_KEYS ; i++)
                 if((presses >> i) & 0x01){
-                    voices[0].stage = attack;
-                    voices[0].frequency = pgm_read_word(&noteFrequencies[OCTAVE][i]);
-                    voices[0].amplitude = 0x40;
+                    keyToVoiceMap[i] = allocateVoice();
+                    if(keyToVoiceMap[i] != 255){
+                        voices[keyToVoiceMap[i]].stage = attack;
+                        voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
+                        voices[keyToVoiceMap[i]].amplitude = 0x80;
+                    }
                 }
 
         if(releases)
-            for(uint8_t i = 0 ; i < 32 ; i++)
+            for(uint8_t i = 0 ; i < N_KEYS ; i++)
                 if((releases >> i) & 0x01){
-                    voices[0].stage = off;
+                    if(keyToVoiceMap[i] != 255){
+                        voices[keyToVoiceMap[i]].stage = off;
+                        freeVoice(keyToVoiceMap[i]);
+                        keyToVoiceMap[i] = 255;
+                    }
                 }
 
         keyboardPreviousState = keyboardState;
-        printHex8_SSD1306(0, 1, OCTAVE);
     }
 }
 
@@ -117,6 +128,13 @@ int main(){
     PORTC = 0xFC; // Pullups on most of port c for buttons and switches
     PORTB = 0xFF; // Pullups for key matrix
     
+    for(uint8_t i = 0 ; i < N_VOICES ; i++){
+        voices[i].phase = 0;
+        voices[i].stage = off;
+    }
+
+    for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255;
+
     changeInstrument(sinValues);
 
     init_SSD1306();

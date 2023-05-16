@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES="src/main.c src/SSD1306.c src/Inputs.c src/Voices.c"
+FILES="src/fSharp32.c src/SSD1306.c src/Inputs.c src/Voices.c"
 OUTPUT="build/fSharp32.elf"
 MCU="atmega1284"
 FLAGS="-O3 -Wfatal-errors"

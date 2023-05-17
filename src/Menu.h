@@ -3,4 +3,8 @@
 
 #include "SSD1306.h"
 
+void (*screenControlFunction)();
+
+void mainScreenDisplayFunction();
+
 #endif

@@ -6,6 +6,7 @@
 #include "Instruments.h"
 #include "Inputs.h"
 #include "Voices.h"
+#include "Menu.h"
 #include "SSD1306.h"
 
 

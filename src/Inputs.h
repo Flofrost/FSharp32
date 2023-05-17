@@ -2,6 +2,9 @@
 #define INPUTS_H
 
 #include <avr/interrupt.h>
+#include "fSharp32.h"
+#include "SSD1306.h"
+#include "Instruments.h"
 
 #define PHASE_A PIND & 0x04
 #define PHASE_B PIND & 0x08
@@ -14,8 +17,17 @@
 
 #define OCTAVE ((PINC >> 2) & 0x03)
 
-extern volatile int8_t incrementsModulator;
+#define N_KEYS 32
 
-void readKeyboard(uint32_t* keyboardState);
+extern volatile int8_t incrementsModulator;
+extern uint32_t keyboardState, keyboardPreviousState;
+
+void (*keyboardHandlingFunction)();
+
+void readKeyboard();
+
+void normalKeyboardOperation();
+void toggleKeyboardOperation();
+void burstKeyboardOperation();
 
 #endif

@@ -1,30 +1,42 @@
 #ifndef FSHARP32_H
 #define FSHARP32_H
 
-#include <avr/io.h>
+#include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-#include "Instruments.h"
 #include "Inputs.h"
-#include "Voices.h"
 #include "Menu.h"
 #include "SSD1306.h"
+#include "Instruments.h"
+
+#define N_VOICES 4
 
 
-#define N_KEYS 32
+typedef enum NoteStage {
+    off,
+    attack,
+    decay,
+    sustain,
+    release
+} NoteStage;
+
+typedef struct Voice{
+    uint16_t phase;
+    uint16_t frequency;
+    uint8_t  amplitude;
+    uint8_t  originatorKey;
+    NoteStage stage;
+} Voice;
 
 
-volatile int8_t vibrato = 0, tremolo = 0, octave = 0;
 
-uint8_t keyToVoiceMap[32];
-volatile Voice voices[N_VOICES];
+extern uint8_t octave;
 
-uint32_t keyboardState = 0, keyboardPreviousState = 0;
+extern uint8_t keyToVoiceMap[32];
+extern volatile Voice voices[N_VOICES];
 
 
-void (*keyboardHandlingFunction)();
+uint8_t allocateVoice();
+void    freeVoice(uint8_t voiceAddress);
 
-void normalKeyboardOperation();
-void toggleKeyboardOperation();
-void burstKeyboardOperation();
 
 #endif

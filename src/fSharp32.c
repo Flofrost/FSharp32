@@ -1,94 +1,27 @@
 #include "fSharp32.h"
 
 
-void normalKeyboardOperation(){
-    readKeyboard(&keyboardState);
-    if(keyboardState != keyboardPreviousState){
-        uint32_t presses = keyboardState ^ keyboardPreviousState;
-        uint32_t releases = (~keyboardState) & presses;
-        presses = keyboardState & presses;
+uint8_t octave = 0;
+volatile int8_t vibrato = 0, tremolo = 0;
+uint8_t busyVoices = 0;
 
-        if(presses)
-            for(uint8_t i = 0 ; i < N_KEYS ; i++)
-                if((presses >> i) & 0x01){
-                    keyToVoiceMap[i] = allocateVoice();
-                    if(keyToVoiceMap[i] != 255){
-                        voices[keyToVoiceMap[i]].stage = attack;
-                        voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
-                        voices[keyToVoiceMap[i]].amplitude = 0x80;
-                    }
-                }
+uint8_t keyToVoiceMap[32];
+volatile Voice voices[N_VOICES];
 
-        if(releases)
-            for(uint8_t i = 0 ; i < N_KEYS ; i++)
-                if((releases >> i) & 0x01){
-                    if(keyToVoiceMap[i] != 255){
-                        voices[keyToVoiceMap[i]].stage = off;
-                        freeVoice(keyToVoiceMap[i]);
-                        keyToVoiceMap[i] = 255;
-                    }
-                }
 
-        keyboardPreviousState = keyboardState;
-    }
+uint8_t allocateVoice(){
+    for(uint8_t i = 0 ; i < N_VOICES ; i++)
+        if(!((busyVoices >> i) & 0x01)){
+            busyVoices |= 1 << i;
+            return i;
+        }
+    return 255;
 }
 
-void toggleKeyboardOperation(){
-    readKeyboard(&keyboardState);
-    if(keyboardState != keyboardPreviousState){
-        uint32_t presses = keyboardState ^ keyboardPreviousState;
-        uint32_t releases = (~keyboardState) & presses;
-        presses = keyboardState & presses;
-
-        if(presses)
-            for(uint8_t i = 0 ; i < N_KEYS ; i++)
-                if((presses >> i) & 0x01){
-                    if(keyToVoiceMap[i] == 255){
-                        keyToVoiceMap[i] = allocateVoice();
-                        if(keyToVoiceMap[i] != 255){
-                            voices[keyToVoiceMap[i]].stage = attack;
-                            voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
-                            voices[keyToVoiceMap[i]].amplitude = 0x80;
-                        }
-                    }else{
-                        voices[keyToVoiceMap[i]].stage = off;
-                        freeVoice(keyToVoiceMap[i]);
-                        keyToVoiceMap[i] = 255;
-                    }
-                }
-
-        keyboardPreviousState = keyboardState;
-    }
+void freeVoice(uint8_t voiceAddress){
+    if(voiceAddress < N_VOICES) busyVoices &= ~(1 << voiceAddress);
 }
 
-void burstKeyboardOperation(){}
-
-
-void mainScreenDisplayFunction(){
-    clear_SSD1306();
-    printStr_SSD1306(0, 0, "OCTAVE : ");
-
-    switch(octave){
-        case 0:
-            printStr_SSD1306(9, 0, "12");
-            break;
-        case 1:
-            printStr_SSD1306(9, 0, "34");
-            break;
-        case 2:
-            printStr_SSD1306(9, 0, "56");
-            break;
-        case 3:
-            printStr_SSD1306(9, 0, "78");
-            break;
-    }
-
-    if(VIBRATO){
-        printStr_SSD1306(0, 1, "Modulation : FM");
-    }else if(TREMOLO){
-        printStr_SSD1306(0, 1, "Modulation : AM");
-    }else printStr_SSD1306(0, 1, "               ");
-}
 
 
 // SOUND GENERATOR
@@ -97,7 +30,7 @@ ISR(TIMER2_COMPA_vect){ // 15625 Hz
 
     for(uint8_t i = 0 ; i < N_VOICES ; i++)
         if(voices[i].stage != off){
-            voiceSample = activeInstrument[voices[i].phase >> 8] >> 2;
+            voiceSample = loadedInstrument[voices[i].phase >> 8] >> 2;
             voiceSample = (voiceSample * (voices[i].amplitude + (tremolo << 3))) >> 7;
             sample += voiceSample;
 
@@ -105,12 +38,6 @@ ISR(TIMER2_COMPA_vect){ // 15625 Hz
         }
 
     PORTA = 127 + sample;
-}
-
-// Reading Keyboard
-ISR(TIMER1_OVF_vect){ // ~ 244 Hz
-    sei();
-    keyboardHandlingFunction();
 }
 
 // Reading Other Inputs and Screen Management
@@ -129,8 +56,9 @@ ISR(TIMER0_OVF_vect){ // ~ 61 Hz
 
     octave = OCTAVE;
     
-    screenManager();
+    screenControlFunction();
 }
+
 
 int main(){
     
@@ -164,12 +92,13 @@ int main(){
 
     for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255;
 
-    changeInstrument(sinValues);
+    loadInstrument(instrumentSine);
 
     keyboardHandlingFunction = normalKeyboardOperation;
 
     init_SSD1306();
-    clear_SSD1306();
+    
+    mainScreenInit();
 
     sei();
     

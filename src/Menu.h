@@ -1,10 +1,15 @@
-#ifndef FSHARP32_H
-#define FSHARP32_H
+#ifndef MENU_H
+#define MENU_H
 
+#include "fSharp32.h"
+#include "Inputs.h"
+#include "Instruments.h"
 #include "SSD1306.h"
 
-void (*screenControlFunction)();
 
-void mainScreenDisplayFunction();
+extern void (*screenControlFunction)();
+
+void mainScreenInit();
+void mainScreenController();
 
 #endif

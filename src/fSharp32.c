@@ -1,4 +1,5 @@
 #include "fSharp32.h"
+#include "UART.h"
 
 
 uint8_t octave = 0;
@@ -44,6 +45,12 @@ ISR(TIMER2_COMPA_vect){ // 15625 Hz
 ISR(TIMER0_OVF_vect){ // ~ 61 Hz
     sei();
 
+    octave = OCTAVE;
+    menuButton = MENU;
+    backButton = BACK;
+    
+    screenControlFunction();
+
     if(VIBRATO){
         vibrato >>= 1;
         vibrato += incrementsModulator;
@@ -53,10 +60,6 @@ ISR(TIMER0_OVF_vect){ // ~ 61 Hz
         tremolo += incrementsModulator;
         incrementsModulator = 0;
     }
-
-    octave = OCTAVE;
-    
-    screenControlFunction();
 }
 
 
@@ -99,7 +102,7 @@ int main(){
     init_SSD1306();
     
     mainScreenInit();
-
+    
     sei();
     
     while(1);

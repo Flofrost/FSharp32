@@ -1,10 +1,33 @@
 #include "Menu.h"
 
+volatile uint8_t menuButtonPrevious = 0, backButtonPrevious = 0;
+
 void (*screenControlFunction)() = mainScreenController;
 
+
 void mainScreenInit(){
+    cli();
+    screenControlFunction = mainScreenController;
+
     clear_SSD1306();
     printStr_SSD1306(0, 0, "OCTAVE : ");
+
+    switch(octave){
+        case 0:
+            printStr_SSD1306(9, 0, "12");
+            break;
+        case 1:
+            printStr_SSD1306(9, 0, "34");
+            break;
+        case 2:
+            printStr_SSD1306(9, 0, "56");
+            break;
+        case 3:
+            printStr_SSD1306(9, 0, "78");
+            break;
+    }
+
+    sei();
 }
 
 void mainScreenController(){
@@ -54,5 +77,39 @@ void mainScreenController(){
     }else{
         printStr_SSD1306(0, 1, "    ");
         printStr_SSD1306(0, 2, "   ");
+    }
+    
+    if(menuButton != menuButtonPrevious){
+        if(menuButton) mainMenuInit();
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
+void mainMenuInit(){
+    cli();
+    screenControlFunction = mainMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(0, 0, "Main Menu");
+    sei();
+}
+
+void mainMenuController(){
+    static int8_t counter = 0;
+    // if(menuButton != menuButtonPrevious){
+    //     if(menuButton){
+    //         mainMenuInit();
+    //         screenControlFunction = mainMenuController;
+    //     }
+    //     menuButtonPrevious = menuButton;
+    // }
+    counter += incrementsModulator;
+    incrementsModulator = 0;
+    printUInt8_SSD1306(0, 1, counter, ' ');
+
+    if(backButton != backButtonPrevious){
+        if(backButton) mainScreenInit();
+        backButtonPrevious = backButton;
     }
 }

@@ -5,6 +5,8 @@ uint8_t readingOffset = 0;
 
 uint32_t keyboardState = 0, keyboardPreviousState = 0;
 
+volatile uint8_t menuButton = 0, backButton = 0;
+
 ISR(INT0_vect){
     if(PHASE_B) incrementsModulator++;
     else        incrementsModulator--;

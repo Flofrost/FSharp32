@@ -12,4 +12,7 @@ extern void (*screenControlFunction)();
 void mainScreenInit();
 void mainScreenController();
 
+void mainMenuInit();
+void mainMenuController();
+
 #endif

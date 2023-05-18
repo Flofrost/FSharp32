@@ -22,6 +22,8 @@
 extern volatile int8_t incrementsModulator;
 extern uint32_t keyboardState, keyboardPreviousState;
 
+extern volatile uint8_t menuButton, backButton;
+
 void (*keyboardHandlingFunction)();
 
 void readKeyboard();

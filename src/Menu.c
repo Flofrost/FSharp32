@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-volatile uint8_t menuButtonPrevious = 0, backButtonPrevious = 0;
+uint8_t menuButtonPrevious = 0, backButtonPrevious = 0, menuIndex = 0;
 
 void (*screenControlFunction)() = mainScreenController;
 
@@ -96,18 +96,6 @@ void mainMenuInit(){
 }
 
 void mainMenuController(){
-    static int8_t counter = 0;
-    // if(menuButton != menuButtonPrevious){
-    //     if(menuButton){
-    //         mainMenuInit();
-    //         screenControlFunction = mainMenuController;
-    //     }
-    //     menuButtonPrevious = menuButton;
-    // }
-    counter += incrementsModulator;
-    incrementsModulator = 0;
-    printUInt8_SSD1306(0, 1, counter, ' ');
-
     if(backButton != backButtonPrevious){
         if(backButton) mainScreenInit();
         backButtonPrevious = backButton;

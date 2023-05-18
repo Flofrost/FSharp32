@@ -19,6 +19,6 @@ avr-size -C --mcu=atmega1284 $OUTPUT
 
 read
 
-sudo avrdude -p m1284 -c pickit2 -B 400kHz -U flash:w:build/fSharp32.elf:a
+sudo avrdude -p m1284 -c pickit2 -B 800kHz -U flash:w:build/fSharp32.elf:a
 
 read

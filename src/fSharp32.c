@@ -95,7 +95,7 @@ int main(){
 
     for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255;
 
-    loadInstrument(instrumentSine);
+    loadInstrument(1);
 
     keyboardHandlingFunction = normalKeyboardOperation;
 

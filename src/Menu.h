@@ -15,4 +15,7 @@ void mainScreenController();
 void mainMenuInit();
 void mainMenuController();
 
+void instrumentMenuInit();
+void instrumentMenuController();
+
 #endif

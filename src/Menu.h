@@ -18,4 +18,7 @@ void mainMenuController();
 void instrumentMenuInit();
 void instrumentMenuController();
 
+void envelopeMenuInit();
+void envelopeMenuController();
+
 #endif

@@ -21,6 +21,7 @@
 void init_SSD1306();
 void clear_SSD1306();
 void printChar_SSD1306(uint8_t x, uint8_t y, int8_t c);
+void printCharInverted_SSD1306(uint8_t x, uint8_t y, int8_t c);
 void printStr_SSD1306(uint8_t x, uint8_t y, char* s);
 void printStrInverted_SSD1306(uint8_t x, uint8_t y, char* s);
 void printUInt8_SSD1306(uint8_t x, uint8_t y, uint8_t v, int8_t filler);

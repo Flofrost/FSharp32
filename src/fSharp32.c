@@ -3,6 +3,7 @@
 
 
 uint8_t octave = 0;
+uint8_t EEMEM selectedInstrument;
 volatile int8_t vibrato = 0, tremolo = 0;
 uint8_t busyVoices = 0;
 
@@ -51,15 +52,16 @@ ISR(TIMER0_OVF_vect){ // ~ 61 Hz
     
     screenControlFunction();
 
-    if(VIBRATO){
-        vibrato >>= 1;
-        vibrato += incrementsModulator;
-        incrementsModulator = 0;
-    }else if(TREMOLO){
-        tremolo >>= 1;
-        tremolo += incrementsModulator;
-        incrementsModulator = 0;
-    }
+    if(screenControlFunction == mainScreenController)
+        if(VIBRATO){
+            vibrato >>= 1;
+            vibrato += incrementsModulator;
+            incrementsModulator = 0;
+        }else if(TREMOLO){
+            tremolo >>= 1;
+            tremolo += incrementsModulator;
+            incrementsModulator = 0;
+        }
 }
 
 
@@ -88,14 +90,19 @@ int main(){
     PORTC = 0xFC; // Pullups on most of port c for buttons and switches
     PORTB = 0xFF; // Pullups for key matrix
     
-    for(uint8_t i = 0 ; i < N_VOICES ; i++){
+    for(uint8_t i = 0 ; i < N_VOICES ; i++){ // Init of voices default values
         voices[i].phase = 0;
         voices[i].stage = off;
     }
 
-    for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255;
+    for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255; // Init of key to voices map
 
-    loadInstrument(1);
+    uint8_t inSel = eeprom_read_byte(&selectedInstrument); // Init of active instrument, and load it
+    if(inSel != 0xFF) loadInstrument(inSel);
+    else{
+        loadInstrument(0);
+        eeprom_write_byte(&selectedInstrument, 0);
+    }
 
     keyboardHandlingFunction = normalKeyboardOperation;
 

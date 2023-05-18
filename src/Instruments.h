@@ -9,8 +9,8 @@ typedef struct Instrument{
     const int8_t icon;
 }Instrument;
 
-extern const Instrument instrumentList[] PROGMEM;
-#define N_INSTRUMENTS (sizeof(instrumentList) / sizeof(Instrument))
+#define N_INSTRUMENTS 4
+extern const Instrument instrumentList[N_INSTRUMENTS] PROGMEM;
 
 extern const int8_t instrumentSine[256] PROGMEM;
 

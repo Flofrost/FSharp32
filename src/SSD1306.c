@@ -158,6 +158,29 @@ void printChar_SSD1306(uint8_t x, uint8_t y, int8_t c){
     I2C_STOP();
 }
 
+void printCharInverted_SSD1306(uint8_t x, uint8_t y, int8_t c){
+    c -= 0x20;
+    x *= 6;
+
+    COMMAND_SSD1306(0x00 | (x & 0x0F));
+    COMMAND_SSD1306(0x10 | (x >> 4));
+    COMMAND_SSD1306(0xB0 | (y & 0x07));
+
+    I2C_START();
+    I2C_WAIT_TRASMISSION();
+    I2C_WRITE(ADDR_W_SSD1306);
+    I2C_WAIT_TRASMISSION();
+    I2C_WRITE(0x40);
+    I2C_WAIT_TRASMISSION();
+    for(uint8_t i = 0; i < 5; i++){
+        I2C_WRITE(~pgm_read_byte(&charmap[c][i]));
+        I2C_WAIT_TRASMISSION();
+    }
+    I2C_WRITE(0xFF);
+    I2C_WAIT_TRASMISSION();
+    I2C_STOP();
+}
+
 void printStr_SSD1306(uint8_t x, uint8_t y, char* s){
     x *= 6;
     
@@ -202,7 +225,7 @@ void printStrInverted_SSD1306(uint8_t x, uint8_t y, char* s){
             I2C_WRITE(~pgm_read_byte(&charmap[character][col]));
             I2C_WAIT_TRASMISSION();
         }
-        I2C_WRITE(0x00);
+        I2C_WRITE(0xFF);
         I2C_WAIT_TRASMISSION();
     }
     I2C_STOP();

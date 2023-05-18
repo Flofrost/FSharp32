@@ -1,6 +1,7 @@
 #ifndef FSHARP32_H
 #define FSHARP32_H
 
+#include <avr/eeprom.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include "Inputs.h"
@@ -30,6 +31,7 @@ typedef struct Voice{
 
 
 extern uint8_t octave;
+extern uint8_t EEMEM selectedInstrument;
 
 extern uint8_t keyToVoiceMap[32];
 extern volatile Voice voices[N_VOICES];

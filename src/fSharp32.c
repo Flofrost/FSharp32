@@ -3,7 +3,8 @@
 
 
 uint8_t octave = 0;
-uint8_t EEMEM selectedInstrument;
+uint8_t EEMEM selectedInstrument = 0;
+uint8_t EEMEM selectedKeyboardMode = 0;
 volatile int8_t vibrato = 0, tremolo = 0;
 
 uint8_t keyToVoiceMap[32];
@@ -155,14 +156,8 @@ int main(){
 
     for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255; // Init of key to voices map
 
-    uint8_t inSel = eeprom_read_byte(&selectedInstrument); // Init of active instrument, and load it
-    if(inSel != 0xFF) loadInstrument(inSel);
-    else{
-        loadInstrument(0);
-        eeprom_write_byte(&selectedInstrument, 0);
-    }
-
-    keyboardHandlingFunction = normalKeyboardOperation;
+    loadInstrument(eeprom_read_byte(&selectedInstrument)); // Init of active instrument, and load it
+    loadKeyboardMode(eeprom_read_byte(&selectedKeyboardMode)); // Init of keyboard operation
 
     init_SSD1306();
     

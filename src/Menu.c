@@ -11,16 +11,21 @@ const int8_t mainMenuItems[][18] PROGMEM = {
     "Keyboard Opt",
     "Envelope"
 };
+const int8_t keyboardModeMenuItems[][7] PROGMEM = {
+    "Normal",
+    "Toggle",
+    "Burst"
+};
 const int8_t envelopeMenuItems[][8] PROGMEM = {
     "Attack",
     "Decay",
     "Sustain",
     "Release"
 };
-const int8_t ADSRMenuItems[3][7] PROGMEM = {
-    "Target",
-    "Step",
-    "Delay"
+const int8_t ADSRMenuItems[3][8] PROGMEM = {
+    "Target ",
+    "Step   ",
+    "Delay  "
 };
 
 void mainScreenInit(){
@@ -29,27 +34,27 @@ void mainScreenInit(){
     screenControlFunction = mainScreenController;
 
     clear_SSD1306();
-    printStr_SSD1306(0, 0, "OCTAVE : ");
+    printStr_SSD1306(0, 0, "OCTAVE : ", 0);
 
     switch(octave){
         case 0:
-            printStr_SSD1306(9, 0, "12");
+            printStr_SSD1306(9, 0, "12", 0);
             break;
         case 1:
-            printStr_SSD1306(9, 0, "34");
+            printStr_SSD1306(9, 0, "34", 0);
             break;
         case 2:
-            printStr_SSD1306(9, 0, "56");
+            printStr_SSD1306(9, 0, "56", 0);
             break;
         case 3:
-            printStr_SSD1306(9, 0, "78");
+            printStr_SSD1306(9, 0, "78", 0);
             break;
     }
     
-    printStr_SSD1306(0, 1, "Ins : ");
+    printStr_SSD1306(0, 1, "Ins : ", 0);
     int8_t insStrBuff[16];
     for(uint8_t i = 0 ; i < 16 ; i++) insStrBuff[i] = pgm_read_byte(&instrumentList[eeprom_read_byte(&selectedInstrument)].name[i]);
-    printStr_SSD1306(6, 1, insStrBuff);
+    printStr_SSD1306(6, 1, insStrBuff, 0);
 
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
@@ -64,16 +69,16 @@ void mainScreenController(){
     if(octave != previousOctave){
         switch(octave){
             case 0:
-                printStr_SSD1306(9, 0, "12");
+                printStr_SSD1306(9, 0, "12", 0);
                 break;
             case 1:
-                printStr_SSD1306(9, 0, "34");
+                printStr_SSD1306(9, 0, "34", 0);
                 break;
             case 2:
-                printStr_SSD1306(9, 0, "56");
+                printStr_SSD1306(9, 0, "56", 0);
                 break;
             case 3:
-                printStr_SSD1306(9, 0, "78");
+                printStr_SSD1306(9, 0, "78", 0);
                 break;
         }
         
@@ -100,11 +105,11 @@ void mainScreenController(){
         noteString[3]      = pgm_read_byte(&noteNames       [octave][voices[voiceIndex].originatorKey][3]);
         frequencyString[4] = pgm_read_byte(&frequencyStrings[octave][voices[voiceIndex].originatorKey][4]);
 
-        printStr_SSD1306(7, 4, frequencyString);
-        printStr_SSD1306(7, 5, noteString);
+        printStr_SSD1306(7, 4, frequencyString, 0);
+        printStr_SSD1306(7, 5, noteString, 0);
     }else{
-        printStr_SSD1306(7, 4, "    ");
-        printStr_SSD1306(7, 5, "   ");
+        printStr_SSD1306(7, 4, "    ", 0);
+        printStr_SSD1306(7, 5, "   ", 0);
     }
     
     if(menuButton != menuButtonPrevious){
@@ -120,7 +125,7 @@ void mainMenuInit(){
     screenControlFunction = mainMenuController;
 
     clear_SSD1306();
-    printStr_SSD1306(6, 0, "Main Menu");
+    printStr_SSD1306(6, 0, "Main Menu", 0);
     
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
@@ -133,8 +138,7 @@ void mainMenuController(){
     for(uint8_t i = 0 ; i < sizeofList(mainMenuItems) ; i++){
         int8_t strBuff[18];
         for(uint8_t j = 0 ; j < 18 ; j++) strBuff[j] = pgm_read_byte(&mainMenuItems[i][j]);
-        if(i == menuIndex) printStrInverted_SSD1306(0, i + 1, strBuff);
-        else               printStr_SSD1306(0, i+1, strBuff);
+        printStr_SSD1306(0, i + 1, strBuff, i == menuIndex);
     }
     
 
@@ -162,6 +166,7 @@ void mainMenuController(){
                     instrumentMenuInit();
                     break;
                 case 1:
+                    keyboardModeMenuInit();
                     break;
                 case 2:
                     envelopeMenuInit();
@@ -179,7 +184,7 @@ void instrumentMenuInit(){
     screenControlFunction = instrumentMenuController;
 
     clear_SSD1306();
-    printStr_SSD1306(2, 0, "Instrument Select");
+    printStr_SSD1306(2, 0, "Instrument Select", 0);
     
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
@@ -193,15 +198,15 @@ void instrumentMenuController(){
         int8_t strBuff[16];
         for(uint8_t j = 0 ; j < 16 ; j++) strBuff[j] = pgm_read_byte(&instrumentList[i].name[j]);
         if(i == menuIndex){
-            printCharInverted_SSD1306(0, i+1, ' ');
-            printCharInverted_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon));
-            printCharInverted_SSD1306(2, i+1, ' ');
-            printStrInverted_SSD1306 (3, i+1, strBuff);
+            printChar_SSD1306(0, i+1, ' ', 1);
+            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), 1);
+            printChar_SSD1306(2, i+1, ' ', 1);
+            printStr_SSD1306 (3, i+1, strBuff, 1);
         }else{
-            printChar_SSD1306(0, i+1, ' ');
-            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon));
-            printChar_SSD1306(2, i+1, ' ');
-            printStr_SSD1306 (3, i+1, strBuff);
+            printChar_SSD1306(0, i+1, ' ', 0);
+            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), 0);
+            printChar_SSD1306(2, i+1, ' ', 0);
+            printStr_SSD1306 (3, i+1, strBuff, 0);
         }
     }
     
@@ -214,7 +219,7 @@ void instrumentMenuController(){
 
     if(incrementsModulator > 2){
         menuIndex--;
-        if(menuIndex >= N_INSTRUMENTS) menuIndex = sizeofList(mainMenuItems) - 1;
+        if(menuIndex >= N_INSTRUMENTS) menuIndex = N_INSTRUMENTS - 1;
         incrementsModulator = 0;
     }
 
@@ -234,13 +239,64 @@ void instrumentMenuController(){
 }
 
 
+void keyboardModeMenuInit(){
+    cli();
+
+    screenControlFunction = keyboardModeMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(4, 0, "Keyboard Mode", 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+
+    sei();
+}
+
+void keyboardModeMenuController(){
+    for(uint8_t i = 0 ; i < sizeofList(keyboardModeMenuItems) ; i++){
+        int8_t strBuff[7];
+        for(uint8_t j = 0 ; j < 7 ; j++) strBuff[j] = pgm_read_byte(&keyboardModeMenuItems[i][j]);
+            printStr_SSD1306(0, i+1, strBuff, i == menuIndex);
+    }
+    
+
+    if(incrementsModulator < -2){
+        menuIndex++;
+        if(menuIndex >= sizeofList(keyboardModeMenuItems)) menuIndex = 0;
+        incrementsModulator = 0;
+    }
+
+    if(incrementsModulator > 2){
+        menuIndex--;
+        if(menuIndex >= sizeofList(keyboardModeMenuItems)) menuIndex = sizeofList(mainMenuItems) - 1;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) mainMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+            loadKeyboardMode(menuIndex)
+            eeprom_write_byte(&selectedKeyboardMode, menuIndex);
+            mainScreenInit();
+        }
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
 void envelopeMenuInit(){
     cli();
 
     screenControlFunction = envelopeMenuController;
 
     clear_SSD1306();
-    printStr_SSD1306(1, 0, "Envelope Generator");
+    printStr_SSD1306(1, 0, "Envelope Generator", 0);
     
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
@@ -253,8 +309,7 @@ void envelopeMenuController(){
     for(uint8_t i = 0 ; i < sizeofList(envelopeMenuItems) ; i++){
         int8_t strBuff[8];
         for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&envelopeMenuItems[i][j]);
-        if(i == menuIndex) printStrInverted_SSD1306(0, i+1, strBuff);
-        else               printStr_SSD1306        (0, i+1, strBuff);
+        printStr_SSD1306(0, i+1, strBuff, i == menuIndex);
     }
     
 
@@ -277,7 +332,77 @@ void envelopeMenuController(){
 
     if(menuButton != menuButtonPrevious){
         if(menuButton){
+            switch(menuIndex){
+                case 0:
+                    attackMenuInit();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
         }
         menuButtonPrevious = menuButton;
     }
 }
+
+
+void attackMenuInit(){
+    cli();
+
+    screenControlFunction = attackMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(3, 0, "Attack Settings", 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+
+    sei();
+}
+
+void attackMenuController(){
+    for(uint8_t i = 0 ; i < sizeofList(ADSRMenuItems) ; i++){
+        int8_t strBuff[8];
+        for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&ADSRMenuItems[i][j]);
+        if(i == menuIndex){
+            printStr_SSD1306(0, i+1, strBuff, 1);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, 0, 1);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   0, 1);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  0, 1);
+        }else{
+            printStr_SSD1306        (0, i+1, strBuff, 0);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, 0, 0);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   0, 0);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  0, 0);
+        }
+    }
+    
+
+    if(incrementsModulator < -2){
+        menuIndex++;
+        if(menuIndex >= sizeofList(ADSRMenuItems)) menuIndex = 0;
+        incrementsModulator = 0;
+    }
+
+    if(incrementsModulator > 2){
+        menuIndex--;
+        if(menuIndex >= sizeofList(ADSRMenuItems)) menuIndex = sizeofList(ADSRMenuItems) - 1;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) envelopeMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+        }
+        menuButtonPrevious = menuButton;
+    }
+}
+

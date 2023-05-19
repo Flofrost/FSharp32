@@ -7,6 +7,7 @@ uint32_t keyboardState = 0, keyboardPreviousState = 0;
 
 volatile uint8_t menuButton = 0, backButton = 0;
 
+
 ISR(INT0_vect){
     if(PHASE_B) incrementsModulator++;
     else        incrementsModulator--;
@@ -108,11 +109,11 @@ void toggleKeyboardOperation(){
                         if(keyToVoiceMap[i] != 255){
                             voices[keyToVoiceMap[i]].stage = attack;
                             voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
-                            voices[keyToVoiceMap[i]].amplitude = 0x80;
+                            voices[keyToVoiceMap[i]].amplitude = 0;
                             voices[keyToVoiceMap[i]].originatorKey = i;
                         }
                     }else{
-                        voices[keyToVoiceMap[i]].stage = off;
+                        voices[keyToVoiceMap[i]].stage = release;
                         freeVoice(keyToVoiceMap[i]);
                         keyToVoiceMap[i] = 255;
                     }
@@ -122,4 +123,26 @@ void toggleKeyboardOperation(){
     }
 }
 
-void burstKeyboardOperation(){}
+void burstKeyboardOperation(){
+    readKeyboard(&keyboardState);
+    if(keyboardState != keyboardPreviousState){
+        uint32_t presses = keyboardState ^ keyboardPreviousState;
+        uint32_t releases = (~keyboardState) & presses;
+        presses = keyboardState & presses;
+
+        if(presses)
+            for(uint8_t i = 0 ; i < N_KEYS ; i++)
+                if((presses >> i) & 0x01){
+                    keyToVoiceMap[i] = allocateVoice();
+                    if(keyToVoiceMap[i] != 255){
+                        voices[keyToVoiceMap[i]].stage = release;
+                        voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
+                        voices[keyToVoiceMap[i]].amplitude = loadedEnvelope.attackTarget;
+                        voices[keyToVoiceMap[i]].originatorKey = i;
+                        freeVoice(keyToVoiceMap[i]);
+                    }
+                }
+
+        keyboardPreviousState = keyboardState;
+    }
+}

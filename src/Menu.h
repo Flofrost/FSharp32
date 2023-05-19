@@ -18,7 +18,22 @@ void mainMenuController();
 void instrumentMenuInit();
 void instrumentMenuController();
 
+void keyboardModeMenuInit();
+void keyboardModeMenuController();
+
 void envelopeMenuInit();
 void envelopeMenuController();
+
+void attackMenuInit();
+void attackMenuController();
+
+void decayMenuInit();
+void decayMenuController();
+
+void sustainMenuInit();
+void sustainMenuController();
+
+void releaseMenuInit();
+void releaseMenuController();
 
 #endif

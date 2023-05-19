@@ -46,6 +46,7 @@ typedef struct Envelope{
 
 extern uint8_t octave;
 extern uint8_t EEMEM selectedInstrument;
+extern uint8_t EEMEM selectedKeyboardMode;
 
 extern uint8_t keyToVoiceMap[32];
 extern Voice voices[N_VOICES];

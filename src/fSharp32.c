@@ -5,10 +5,24 @@
 uint8_t octave = 0;
 uint8_t EEMEM selectedInstrument;
 volatile int8_t vibrato = 0, tremolo = 0;
-uint8_t busyVoices = 0;
 
 uint8_t keyToVoiceMap[32];
-volatile Voice voices[N_VOICES];
+Voice voices[N_VOICES];
+
+uint8_t busyVoices = 0;
+
+Envelope loadedEnvelope = {
+    .attackTarget = 128,
+    .attackStep   = 128,
+    .attackDelay  = 0,
+    .decayTarget  = 128,
+    .decayStep    = 1,
+    .decayDelay   = 0,
+    .sustainStep  = 0,
+    .sustainDelay = 255,
+    .releaseStep  = 16,
+    .releaseDelay = 1
+};
 
 
 uint8_t allocateVoice(){
@@ -24,6 +38,46 @@ void freeVoice(uint8_t voiceAddress){
     if(voiceAddress < N_VOICES) busyVoices &= ~(1 << voiceAddress);
 }
 
+
+static void envelopeManager(Voice* voice){
+    switch(voice->stage){
+        case attack:
+            if(++voice->counter >= loadedEnvelope.attackDelay){
+                voice->amplitude += loadedEnvelope.attackStep;
+
+                if(voice->amplitude >= loadedEnvelope.attackTarget) voice->stage = decay;
+                voice->counter = 0;
+            }
+            break;
+
+        case decay:
+            if(++voice->counter >= loadedEnvelope.decayDelay){
+                voice->amplitude -= loadedEnvelope.decayStep;
+
+                if(voice->amplitude <= loadedEnvelope.decayTarget) voice->stage = sustain;
+                voice->counter = 0;
+            }
+            break;
+
+        case sustain:
+            if(++voice->counter >= loadedEnvelope.sustainDelay){
+                if(voice->amplitude - loadedEnvelope.sustainStep <= 0) voice->stage = off;
+                else voice->amplitude -= loadedEnvelope.sustainStep;
+
+                voice->counter = 0;
+            }
+            break;
+
+        case release:
+            if(++voice->counter >= loadedEnvelope.releaseDelay){
+                if(voice->amplitude - loadedEnvelope.releaseStep <= 0) voice->stage = off;
+                else voice->amplitude -= loadedEnvelope.releaseStep;
+
+                voice->counter = 0;
+            }
+            break;
+    }
+}
 
 
 // SOUND GENERATOR
@@ -62,6 +116,10 @@ ISR(TIMER0_OVF_vect){ // ~ 61 Hz
             tremolo += incrementsModulator;
             incrementsModulator = 0;
         }
+    
+    for(uint8_t i = 0 ; i < N_VOICES ; i++)
+        if(voices[i].stage != off) envelopeManager(&voices[i]);
+
 }
 
 

@@ -21,12 +21,26 @@ typedef enum NoteStage {
 } NoteStage;
 
 typedef struct Voice{
-    uint16_t phase;
-    uint16_t frequency;
-    uint8_t  amplitude;
-    uint8_t  originatorKey;
+    uint16_t  phase;
+    uint16_t  frequency;
+    uint8_t   amplitude;
+    uint8_t   originatorKey;
+    uint8_t   counter;
     NoteStage stage;
 } Voice;
+
+typedef struct Envelope{
+    uint8_t attackTarget;
+    uint8_t attackStep;
+    uint8_t attackDelay;
+    uint8_t decayTarget;
+    uint8_t decayStep;
+    uint8_t decayDelay;
+    uint8_t sustainStep;
+    uint8_t sustainDelay;
+    uint8_t releaseStep;
+    uint8_t releaseDelay;
+} Envelope;
 
 
 
@@ -34,7 +48,9 @@ extern uint8_t octave;
 extern uint8_t EEMEM selectedInstrument;
 
 extern uint8_t keyToVoiceMap[32];
-extern volatile Voice voices[N_VOICES];
+extern Voice voices[N_VOICES];
+
+extern Envelope loadedEnvelope;
 
 
 uint8_t allocateVoice();

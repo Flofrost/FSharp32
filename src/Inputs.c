@@ -73,7 +73,8 @@ void normalKeyboardOperation(){
                     if(keyToVoiceMap[i] != 255){
                         voices[keyToVoiceMap[i]].stage = attack;
                         voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
-                        voices[keyToVoiceMap[i]].amplitude = 0x80;
+                        voices[keyToVoiceMap[i]].amplitude = 0;
+                        voices[keyToVoiceMap[i]].counter = 0;
                         voices[keyToVoiceMap[i]].originatorKey = i;
                     }
                 }
@@ -82,7 +83,7 @@ void normalKeyboardOperation(){
             for(uint8_t i = 0 ; i < N_KEYS ; i++)
                 if((releases >> i) & 0x01){
                     if(keyToVoiceMap[i] != 255){
-                        voices[keyToVoiceMap[i]].stage = off;
+                        voices[keyToVoiceMap[i]].stage = release;
                         freeVoice(keyToVoiceMap[i]);
                         keyToVoiceMap[i] = 255;
                     }

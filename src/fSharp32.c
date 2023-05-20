@@ -62,7 +62,11 @@ static void envelopeManager(Voice* voice){
 
         case sustain:
             if(++voice->counter >= loadedEnvelope.sustainDelay){
-                if(voice->amplitude - loadedEnvelope.sustainStep <= 0) voice->stage = off;
+                if(voice->amplitude - loadedEnvelope.sustainStep <= 0){
+                    voice->stage = off;
+                    freeVoice(keyToVoiceMap[voice->originatorKey]);
+                    keyToVoiceMap[voice->originatorKey] = 255;
+                }
                 else voice->amplitude -= loadedEnvelope.sustainStep;
 
                 voice->counter = 0;

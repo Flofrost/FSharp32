@@ -1,10 +1,14 @@
 #include "Menu.h"
 
 uint8_t menuButtonPrevious = 0, backButtonPrevious = 0, menuIndex = 0;
+uint8_t editeeX, editeeY, editeeATR, editeeBuffer;
+uint8_t* editeePTR;
 
 void (*screenControlFunction)() = mainScreenController;
+void (*returnToController)();
 
 #define sizeofList(item) (sizeof(item) / sizeof(item[0]))
+#define abs(x) ((x) < 0) ? -(x) : (x)
 
 const int8_t mainMenuItems[][18] PROGMEM = {
     "Instruments",
@@ -69,16 +73,16 @@ void mainScreenController(){
     if(octave != previousOctave){
         switch(octave){
             case 0:
-                printStr_SSD1306(9, 0, "12", 0);
+                printStr_SSD1306(9, 0, "34", 0);
                 break;
             case 1:
-                printStr_SSD1306(9, 0, "34", 0);
+                printStr_SSD1306(9, 0, "45", 0);
                 break;
             case 2:
                 printStr_SSD1306(9, 0, "56", 0);
                 break;
             case 3:
-                printStr_SSD1306(9, 0, "78", 0);
+                printStr_SSD1306(9, 0, "67", 0);
                 break;
         }
         
@@ -198,10 +202,10 @@ void instrumentMenuController(){
         int8_t strBuff[16];
         for(uint8_t j = 0 ; j < 16 ; j++) strBuff[j] = pgm_read_byte(&instrumentList[i].name[j]);
         if(i == menuIndex){
-            printChar_SSD1306(0, i+1, ' ', 1);
-            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), 1);
-            printChar_SSD1306(2, i+1, ' ', 1);
-            printStr_SSD1306 (3, i+1, strBuff, 1);
+            printChar_SSD1306(0, i+1, ' ', ATTR_INVERTED);
+            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), ATTR_INVERTED);
+            printChar_SSD1306(2, i+1, ' ', ATTR_INVERTED);
+            printStr_SSD1306 (3, i+1, strBuff, ATTR_INVERTED);
         }else{
             printChar_SSD1306(0, i+1, ' ', 0);
             printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), 0);
@@ -337,12 +341,62 @@ void envelopeMenuController(){
                     attackMenuInit();
                     break;
                 case 1:
+                    decayMenuInit();
                     break;
                 case 2:
+                    sustainMenuInit();
                     break;
                 case 3:
+                    releaseMenuInit();
                     break;
             }
+        }
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
+void valueEditInit(uint8_t* valuePtr, uint8_t x, uint8_t y, void (*returnTo)(), uint8_t flags){
+    cli();
+
+    screenControlFunction = valueEditController;
+
+    editeeX = x;
+    editeeY = y;
+    editeeATR = flags;
+    editeePTR = valuePtr;
+    editeeBuffer = *valuePtr;
+    returnToController = returnTo;
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+
+    sei();
+}
+
+void valueEditController(){
+    
+    printUInt8_SSD1306(editeeX, editeeY, editeeBuffer, ' ', editeeATR);
+
+    if(incrementsModulator < -2){
+        editeeBuffer--;
+        incrementsModulator = 0;
+    }
+
+    if(incrementsModulator > 2){
+        editeeBuffer++;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) returnToController();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+            *editeePTR = editeeBuffer;
+            returnToController();
         }
         menuButtonPrevious = menuButton;
     }
@@ -365,14 +419,14 @@ void attackMenuInit(){
 }
 
 void attackMenuController(){
-    for(uint8_t i = 0 ; i < sizeofList(ADSRMenuItems) ; i++){
+    for(uint8_t i = 0 ; i < 3 ; i++){
         int8_t strBuff[8];
         for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&ADSRMenuItems[i][j]);
         if(i == menuIndex){
-            printStr_SSD1306(0, i+1, strBuff, 1);
-            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, ' ', 1);
-            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   ' ', 1);
-            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  ' ', 1);
+            printStr_SSD1306(0, i+1, strBuff, ATTR_INVERTED);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, ' ', ATTR_INVERTED);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   ' ', ATTR_INVERTED);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  ' ', ATTR_INVERTED);
         }else{
             printStr_SSD1306        (0, i+1, strBuff, 0);
             if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, ' ', 0);
@@ -401,8 +455,173 @@ void attackMenuController(){
 
     if(menuButton != menuButtonPrevious){
         if(menuButton){
+            if     (menuIndex == 0) valueEditInit(&loadedEnvelope.attackTarget, 7, 1, attackMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+            else if(menuIndex == 1) valueEditInit(&loadedEnvelope.attackStep,   7, 2, attackMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+            else if(menuIndex == 2) valueEditInit(&loadedEnvelope.attackDelay,  7, 3, attackMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
         }
         menuButtonPrevious = menuButton;
     }
 }
 
+
+void decayMenuInit(){
+    cli();
+
+    screenControlFunction = decayMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(4, 0, "Decay Settings", 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+
+    sei();
+}
+
+void decayMenuController(){
+    for(uint8_t i = 0 ; i < 3 ; i++){
+        int8_t strBuff[8];
+        for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&ADSRMenuItems[i][j]);
+        if(i == menuIndex){
+            printStr_SSD1306(0, i+1, strBuff, ATTR_INVERTED);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.decayTarget, ' ', ATTR_INVERTED);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.decayStep,   ' ', ATTR_INVERTED);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.decayDelay,  ' ', ATTR_INVERTED);
+        }else{
+            printStr_SSD1306        (0, i+1, strBuff, 0);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.decayTarget, ' ', 0);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.decayStep,   ' ', 0);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.decayDelay,  ' ', 0);
+        }
+    }
+    
+
+    if(incrementsModulator < -2){
+        menuIndex++;
+        if(menuIndex >= sizeofList(ADSRMenuItems)) menuIndex = 0;
+        incrementsModulator = 0;
+    }
+
+    if(incrementsModulator > 2){
+        menuIndex--;
+        if(menuIndex >= sizeofList(ADSRMenuItems)) menuIndex = sizeofList(ADSRMenuItems) - 1;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) envelopeMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+            if     (menuIndex == 0) valueEditInit(&loadedEnvelope.decayTarget, 7, 1, decayMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+            else if(menuIndex == 1) valueEditInit(&loadedEnvelope.decayStep,   7, 2, decayMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+            else if(menuIndex == 2) valueEditInit(&loadedEnvelope.decayDelay,  7, 3, decayMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+        }
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
+void sustainMenuInit(){
+    cli();
+
+    screenControlFunction = sustainMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(2, 0, "Sustain Settings", 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+
+    sei();
+}
+
+void sustainMenuController(){
+    for(uint8_t i = 0 ; i < 2 ; i++){
+        int8_t strBuff[8];
+        for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&ADSRMenuItems[i+1][j]);
+        if(i == menuIndex){
+            printStr_SSD1306(0, i+1, strBuff, ATTR_INVERTED);
+            if(i) printUInt8_SSD1306(7, i+1, loadedEnvelope.sustainDelay, ' ', ATTR_INVERTED);
+            else  printUInt8_SSD1306(7, i+1, loadedEnvelope.sustainStep,  ' ', ATTR_INVERTED);
+        }else{
+            printStr_SSD1306        (0, i+1, strBuff, 0);
+            if(i) printUInt8_SSD1306(7, i+1, loadedEnvelope.sustainDelay, ' ', 0);
+            else  printUInt8_SSD1306(7, i+1, loadedEnvelope.sustainStep,  ' ', 0);
+        }
+    }
+    
+
+    if(abs(incrementsModulator) > 2){
+        menuIndex = !menuIndex;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) envelopeMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+            if(menuIndex) valueEditInit(&loadedEnvelope.sustainDelay, 7, 2, sustainMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+            else          valueEditInit(&loadedEnvelope.sustainStep,  7, 1, sustainMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+        }
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
+void releaseMenuInit(){
+    cli();
+
+    screenControlFunction = releaseMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(2, 0, "Release Settings", 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+
+    sei();
+}
+
+void releaseMenuController(){
+    for(uint8_t i = 0 ; i < 2 ; i++){
+        int8_t strBuff[8];
+        for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&ADSRMenuItems[i+1][j]);
+        if(i == menuIndex){
+            printStr_SSD1306(0, i+1, strBuff, ATTR_INVERTED);
+            if(i) printUInt8_SSD1306(7, i+1, loadedEnvelope.releaseDelay, ' ', ATTR_INVERTED);
+            else  printUInt8_SSD1306(7, i+1, loadedEnvelope.releaseStep,  ' ', ATTR_INVERTED);
+        }else{
+            printStr_SSD1306        (0, i+1, strBuff, 0);
+            if(i) printUInt8_SSD1306(7, i+1, loadedEnvelope.releaseDelay, ' ', 0);
+            else  printUInt8_SSD1306(7, i+1, loadedEnvelope.releaseStep,  ' ', 0);
+        }
+    }
+    
+
+    if(abs(incrementsModulator) > 2){
+        menuIndex = !menuIndex;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) envelopeMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+            if(menuIndex) valueEditInit(&loadedEnvelope.releaseDelay, 7, 2, releaseMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+            else          valueEditInit(&loadedEnvelope.releaseStep,  7, 1, releaseMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+        }
+        menuButtonPrevious = menuButton;
+    }
+}

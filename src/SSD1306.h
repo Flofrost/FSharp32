@@ -4,6 +4,9 @@
 #include <avr/io.h>
 #include "I2C.h"
 
+#define ATTR_INVERTED  0x01
+#define ATTR_UNDERLINE 0x02
+#define ATTR_STRICKTHR 0x04
 
 #define ADDR_W_SSD1306 0x78
 
@@ -20,6 +23,8 @@
 
 void init_SSD1306();
 void clear_SSD1306();
+
+// flags = 0b00000SUI; I = Invert, U = Underline, S = Strikethrough
 void printChar_SSD1306(uint8_t x, uint8_t y, int8_t c, uint8_t flags);
 void printStr_SSD1306(uint8_t x, uint8_t y, char* s, uint8_t flags);
 void printUInt8_SSD1306(uint8_t x, uint8_t y, uint8_t v, int8_t filler, uint8_t flags);

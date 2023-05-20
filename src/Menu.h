@@ -24,6 +24,9 @@ void keyboardModeMenuController();
 void envelopeMenuInit();
 void envelopeMenuController();
 
+void valueEditInit(uint8_t* valuePtr, uint8_t x, uint8_t y, void (*returnTo)(), uint8_t flags);
+void valueEditController();
+
 void attackMenuInit();
 void attackMenuController();
 

@@ -156,8 +156,13 @@ int main(){
 
     for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255; // Init of key to voices map
 
-    loadInstrument(eeprom_read_byte(&selectedInstrument)); // Init of active instrument, and load it
-    loadKeyboardMode(eeprom_read_byte(&selectedKeyboardMode)); // Init of keyboard operation
+    uint8_t loadedEEPROMbyte = eeprom_read_byte(&selectedInstrument); // Init of active instrument, and load it
+    if(loadedEEPROMbyte < N_INSTRUMENTS) loadInstrument(loadedEEPROMbyte); 
+    else                                 loadInstrument(0);
+
+    loadedEEPROMbyte = eeprom_read_byte(&selectedKeyboardMode); // Init of keyboard operation
+    if(loadedEEPROMbyte < 3){loadKeyboardMode(loadedEEPROMbyte);}
+    else                    {loadKeyboardMode(0);}
 
     init_SSD1306();
     

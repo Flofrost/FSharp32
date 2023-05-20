@@ -370,14 +370,14 @@ void attackMenuController(){
         for(uint8_t j = 0 ; j < 8 ; j++) strBuff[j] = pgm_read_byte(&ADSRMenuItems[i][j]);
         if(i == menuIndex){
             printStr_SSD1306(0, i+1, strBuff, 1);
-            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, 0, 1);
-            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   0, 1);
-            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  0, 1);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, ' ', 1);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   ' ', 1);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  ' ', 1);
         }else{
             printStr_SSD1306        (0, i+1, strBuff, 0);
-            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, 0, 0);
-            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   0, 0);
-            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  0, 0);
+            if     (i == 0) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackTarget, ' ', 0);
+            else if(i == 1) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackStep,   ' ', 0);
+            else if(i == 2) printUInt8_SSD1306(7, i+1, loadedEnvelope.attackDelay,  ' ', 0);
         }
     }
     

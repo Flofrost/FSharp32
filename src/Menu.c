@@ -11,18 +11,19 @@ void (*returnToController)();
 #define abs(x) ((x) < 0) ? -(x) : (x)
 
 const int8_t mainMenuItems[][18] PROGMEM = {
-    "Instruments",
-    "Keyboard Opt",
-    "Envelope"
+    "Instruments   ",
+    "Keyboard Modes",
+    "Envelope      ",
+    "Profiles      "
 };
 const int8_t keyboardModeMenuItems[][7] PROGMEM = {
     "Normal",
     "Toggle",
-    "Burst"
+    "Burst "
 };
 const int8_t envelopeMenuItems[][8] PROGMEM = {
-    "Attack",
-    "Decay",
+    "Attack ",
+    "Decay  ",
     "Sustain",
     "Release"
 };
@@ -174,6 +175,8 @@ void mainMenuController(){
                     break;
                 case 2:
                     envelopeMenuInit();
+                    break;
+                case 3:
                     break;
             }
         }

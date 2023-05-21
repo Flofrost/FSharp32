@@ -39,4 +39,7 @@ void sustainMenuController();
 void releaseMenuInit();
 void releaseMenuController();
 
+void profileMenuInit();
+void profileMenuController();
+
 #endif

@@ -42,6 +42,11 @@ typedef struct Envelope{
     uint8_t releaseDelay;
 } Envelope;
 
+typedef struct Profile{
+    Envelope envelope;
+    uint8_t  selectedInstrument;
+    uint8_t  selectedKeyboardMode;
+} Profile;
 
 
 extern uint8_t octave;

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES="src/fSharp32.c src/Instruments.c src/Inputs.c src/Menu.c src/SSD1306.c"
+FILES="src/fSharp32.c src/Instruments.c src/Inputs.c src/Menu.c src/SSD1306.c src/defaultProfiles.c"
 OUTPUT="build/fSharp32.elf"
 MCU="atmega1284"
 FLAGS="-O3 -Wfatal-errors"
@@ -15,10 +15,11 @@ if [ ! -d "build" ]; then
 fi
 
 avr-gcc -mmcu=$MCU $FLAGS -o $OUTPUT $FILES || readAndExit
+avr-objcopy --dump-section .eeprom=build/defaultProfiles.hex $OUTPUT
 avr-size -C --mcu=atmega1284 $OUTPUT
 
 read
 
-sudo avrdude -p m1284 -c pickit2 -B 800kHz -U flash:w:build/fSharp32.elf:a
+sudo avrdude -p m1284 -c pickit2 -B 800kHz -U flash:w:$OUTPUT:a
 
 read

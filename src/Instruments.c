@@ -50,3 +50,4 @@ const Instrument instrumentList[N_INSTRUMENTS] PROGMEM = {
         .icon    = '\x05'
     }
 };
+

@@ -137,7 +137,7 @@ void burstKeyboardOperation(){
                     if(keyToVoiceMap[i] != 255){
                         voices[keyToVoiceMap[i]].stage = release;
                         voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
-                        voices[keyToVoiceMap[i]].amplitude = loadedEnvelope.attackTarget;
+                        voices[keyToVoiceMap[i]].amplitude = loadedProfile.envelope.attackTarget;
                         voices[keyToVoiceMap[i]].originatorKey = i;
                         freeVoice(keyToVoiceMap[i]);
                     }

@@ -45,19 +45,18 @@ typedef struct Envelope{
 typedef struct Profile{
     Envelope envelope;
     uint8_t  selectedInstrument;
-    uint8_t  selectedKeyboardMode;
+    int8_t   name[22];
 } Profile;
 
+extern Profile EEMEM savedProfiles[10];
 
 extern uint8_t octave;
-extern uint8_t EEMEM selectedInstrument;
-extern uint8_t EEMEM selectedKeyboardMode;
 
 extern uint8_t keyToVoiceMap[32];
 extern Voice voices[N_VOICES];
 
-extern Envelope loadedEnvelope;
-
+extern Profile loadedProfile;
+extern uint8_t loadedKeyboardMode;
 
 uint8_t allocateVoice();
 void    freeVoice(uint8_t voiceAddress);

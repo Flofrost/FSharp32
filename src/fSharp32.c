@@ -3,29 +3,32 @@
 
 
 uint8_t octave = 0;
-uint8_t EEMEM selectedInstrument = 0;
-uint8_t EEMEM selectedKeyboardMode = 0;
 volatile int8_t vibrato = 0, tremolo = 0;
 
 uint8_t keyToVoiceMap[32];
 Voice voices[N_VOICES];
 
-uint8_t busyVoices = 0;
+uint8_t loadedKeyboardMode = 0;
 
-Envelope loadedEnvelope = {
-    .attackTarget = 128,
-    .attackStep   = 128,
-    .attackDelay  = 0,
-    .decayTarget  = 128,
-    .decayStep    = 1,
-    .decayDelay   = 0,
-    .sustainStep  = 0,
-    .sustainDelay = 255,
-    .releaseStep  = 16,
-    .releaseDelay = 1
+Profile loadedProfile = {
+    .envelope = {
+        .attackTarget = 128,
+        .attackStep   = 128,
+        .attackDelay  = 0,
+        .decayTarget  = 128,
+        .decayStep    = 1,
+        .decayDelay   = 0,
+        .sustainStep  = 0,
+        .sustainDelay = 255,
+        .releaseStep  = 16,
+        .releaseDelay = 1
+    },
+    .selectedInstrument = 0,
+    .name = "Default"
 };
 
 
+uint8_t busyVoices = 0;
 uint8_t allocateVoice(){
     for(uint8_t i = 0 ; i < N_VOICES ; i++)
         if(!((busyVoices >> i) & 0x01)){
@@ -43,40 +46,40 @@ void freeVoice(uint8_t voiceAddress){
 static void envelopeManager(Voice* voice){
     switch(voice->stage){
         case attack:
-            if(++voice->counter >= loadedEnvelope.attackDelay){
-                voice->amplitude += loadedEnvelope.attackStep;
+            if(++voice->counter >= loadedProfile.envelope.attackDelay){
+                voice->amplitude += loadedProfile.envelope.attackStep;
 
-                if(voice->amplitude >= loadedEnvelope.attackTarget) voice->stage = decay;
+                if(voice->amplitude >= loadedProfile.envelope.attackTarget) voice->stage = decay;
                 voice->counter = 0;
             }
             break;
 
         case decay:
-            if(++voice->counter >= loadedEnvelope.decayDelay){
-                voice->amplitude -= loadedEnvelope.decayStep;
+            if(++voice->counter >= loadedProfile.envelope.decayDelay){
+                voice->amplitude -= loadedProfile.envelope.decayStep;
 
-                if(voice->amplitude <= loadedEnvelope.decayTarget) voice->stage = sustain;
+                if(voice->amplitude <= loadedProfile.envelope.decayTarget) voice->stage = sustain;
                 voice->counter = 0;
             }
             break;
 
         case sustain:
-            if(++voice->counter >= loadedEnvelope.sustainDelay){
-                if(voice->amplitude - loadedEnvelope.sustainStep <= 0){
+            if(++voice->counter >= loadedProfile.envelope.sustainDelay){
+                if(voice->amplitude - loadedProfile.envelope.sustainStep <= 0){
                     voice->stage = off;
                     freeVoice(keyToVoiceMap[voice->originatorKey]);
                     keyToVoiceMap[voice->originatorKey] = 255;
                 }
-                else voice->amplitude -= loadedEnvelope.sustainStep;
+                else voice->amplitude -= loadedProfile.envelope.sustainStep;
 
                 voice->counter = 0;
             }
             break;
 
         case release:
-            if(++voice->counter >= loadedEnvelope.releaseDelay){
-                if(voice->amplitude - loadedEnvelope.releaseStep <= 0) voice->stage = off;
-                else voice->amplitude -= loadedEnvelope.releaseStep;
+            if(++voice->counter >= loadedProfile.envelope.releaseDelay){
+                if(voice->amplitude - loadedProfile.envelope.releaseStep <= 0) voice->stage = off;
+                else voice->amplitude -= loadedProfile.envelope.releaseStep;
 
                 voice->counter = 0;
             }
@@ -160,13 +163,8 @@ int main(){
 
     for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255; // Init of key to voices map
 
-    uint8_t loadedEEPROMbyte = eeprom_read_byte(&selectedInstrument); // Init of active instrument, and load it
-    if(loadedEEPROMbyte < N_INSTRUMENTS) loadInstrument(loadedEEPROMbyte); 
-    else                                 loadInstrument(0);
-
-    loadedEEPROMbyte = eeprom_read_byte(&selectedKeyboardMode); // Init of keyboard operation
-    if(loadedEEPROMbyte < 3){loadKeyboardMode(loadedEEPROMbyte);}
-    else                    {loadKeyboardMode(0);}
+    loadInstrument(loadedProfile.selectedInstrument);
+    loadKeyboardMode(loadedKeyboardMode);
 
     init_SSD1306();
     

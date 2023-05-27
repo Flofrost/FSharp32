@@ -16,7 +16,7 @@ fi
 
 avr-gcc -mmcu=$MCU $FLAGS -o $OUTPUT $FILES || readAndExit
 avr-objcopy --dump-section .eeprom=build/defaultProfiles.hex $OUTPUT
-avr-size -C --mcu=atmega1284 $OUTPUT
+avr-size -C --mcu=$MCU $OUTPUT
 
 read
 

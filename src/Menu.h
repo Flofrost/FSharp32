@@ -42,4 +42,7 @@ void releaseMenuController();
 void profileMenuInit();
 void profileMenuController();
 
+void profileOptionsMenuInit(uint8_t profileIndex);
+void profileOptionsMenuController();
+
 #endif

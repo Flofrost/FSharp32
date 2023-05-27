@@ -1,5 +1,4 @@
 #include "fSharp32.h"
-#include "UART.h"
 
 
 uint8_t octave = 0;
@@ -20,8 +19,8 @@ Profile loadedProfile = {
         .decayDelay   = 0,
         .sustainStep  = 0,
         .sustainDelay = 255,
-        .releaseStep  = 16,
-        .releaseDelay = 1
+        .releaseStep  = 128,
+        .releaseDelay = 0
     },
     .selectedInstrument = 0,
     .name = "Default"
@@ -40,6 +39,31 @@ uint8_t allocateVoice(){
 
 void freeVoice(uint8_t voiceAddress){
     if(voiceAddress < N_VOICES) busyVoices &= ~(1 << voiceAddress);
+}
+
+void loadProfile(uint8_t profileIndex){
+    cli();
+
+    uint8_t numBuff = eeprom_read_byte(&savedProfiles[profileIndex].selectedInstrument);
+    loadInstrument(numBuff);
+    loadedProfile.selectedInstrument = numBuff;
+
+    loadedProfile.envelope.attackTarget = eeprom_read_byte(&savedProfiles[profileIndex].envelope.attackTarget);
+    loadedProfile.envelope.attackStep   = eeprom_read_byte(&savedProfiles[profileIndex].envelope.attackStep);
+    loadedProfile.envelope.attackDelay  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.attackDelay);
+    loadedProfile.envelope.decayTarget  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.decayTarget);
+    loadedProfile.envelope.decayStep    = eeprom_read_byte(&savedProfiles[profileIndex].envelope.decayStep);
+    loadedProfile.envelope.decayDelay   = eeprom_read_byte(&savedProfiles[profileIndex].envelope.decayDelay);
+    loadedProfile.envelope.sustainStep  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.sustainStep);
+    loadedProfile.envelope.sustainDelay = eeprom_read_byte(&savedProfiles[profileIndex].envelope.sustainDelay);
+    loadedProfile.envelope.releaseStep  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.releaseStep);
+    loadedProfile.envelope.releaseDelay = eeprom_read_byte(&savedProfiles[profileIndex].envelope.releaseDelay);
+
+    sei();
+}
+
+void saveProfile(uint8_t profileIndex){
+
 }
 
 

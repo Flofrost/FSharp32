@@ -45,10 +45,10 @@ typedef struct Envelope{
 typedef struct Profile{
     Envelope envelope;
     uint8_t  selectedInstrument;
-    int8_t   name[22];
+    int8_t   name[16];
 } Profile;
 
-extern Profile EEMEM savedProfiles[10];
+extern Profile EEMEM savedProfiles[100];
 
 extern uint8_t octave;
 
@@ -60,6 +60,9 @@ extern uint8_t loadedKeyboardMode;
 
 uint8_t allocateVoice();
 void    freeVoice(uint8_t voiceAddress);
+
+void loadProfile(uint8_t profileIndex);
+void saveProfile(uint8_t profileIndex);
 
 
 #endif

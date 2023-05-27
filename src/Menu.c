@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-uint8_t menuButtonPrevious = 0, backButtonPrevious = 0, menuIndex = 0;
+uint8_t menuButtonPrevious = 0, backButtonPrevious = 0, displayIndex = 0, menuIndex = 0, screenStart = 0;
 uint8_t editeeX, editeeY, editeeATR, editeeBuffer;
 uint8_t* editeePTR;
 
@@ -32,6 +32,11 @@ const int8_t ADSRMenuItems[3][8] PROGMEM = {
     "Step   ",
     "Delay  "
 };
+const int8_t profileOptsMenuItems[][5] PROGMEM = {
+    "Load",
+    "Save"
+};
+
 
 void mainScreenInit(){
     cli();
@@ -183,6 +188,7 @@ void mainMenuController(){
                     envelopeMenuInit();
                     break;
                 case 3:
+                    profileMenuInit();
                     break;
             }
         }
@@ -202,6 +208,8 @@ void instrumentMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    screenStart = 0;
+    displayIndex = 0;
 
     sei();
 }
@@ -630,6 +638,108 @@ void releaseMenuController(){
         if(menuButton){
             if(menuIndex) valueEditInit(&loadedProfile.envelope.releaseDelay, 7, 2, releaseMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
             else          valueEditInit(&loadedProfile.envelope.releaseStep,  7, 1, releaseMenuInit, ATTR_UNDERLINE | ATTR_INVERTED);
+        }
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
+void profileMenuInit(){
+    cli();
+
+    screenControlFunction = profileMenuController;
+
+    clear_SSD1306();
+    printStr_SSD1306(6, 0, "Profiles", 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+    screenStart = 0;
+    displayIndex = 0;
+
+    sei();
+}
+
+void profileMenuController(){
+    
+    if(menuIndex < screenStart) screenStart = menuIndex;
+    if(menuIndex > screenStart + 6) screenStart = menuIndex - 6;
+
+    int8_t strBuff[16];
+    eeprom_read_block(strBuff, savedProfiles[screenStart + displayIndex].name, 16);
+    printHex8_SSD1306(0, displayIndex + 1, screenStart + displayIndex, screenStart + displayIndex == menuIndex);
+    printStr_SSD1306(2, displayIndex + 1, " - ", screenStart + displayIndex == menuIndex);
+    printStr_SSD1306(5, displayIndex + 1, strBuff, screenStart + displayIndex == menuIndex);
+    
+    if(++displayIndex >= 7) displayIndex = 0;
+    
+
+    if(incrementsModulator < -2){
+        menuIndex++;
+        if(menuIndex >= sizeofList(savedProfiles)) menuIndex = 0;
+        incrementsModulator = 0;
+    }
+
+    if(incrementsModulator > 2){
+        menuIndex--;
+        if(menuIndex >= sizeofList(savedProfiles)) menuIndex = sizeofList(savedProfiles) - 1;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) mainMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton) profileOptionsMenuInit(menuIndex);
+        menuButtonPrevious = menuButton;
+    }
+}
+
+
+void profileOptionsMenuInit(uint8_t profileIndex){
+    cli();
+
+    editeeBuffer = profileIndex;
+    screenControlFunction = profileOptionsMenuController;
+
+    clear_SSD1306();
+    int8_t strBuff[16];
+    eeprom_read_block(strBuff, savedProfiles[profileIndex].name, 16);
+    printStr_SSD1306(3, 0, strBuff, 0);
+    
+    menuButtonPrevious = menuButton;
+    backButtonPrevious = backButton;
+    menuIndex = 0;
+
+    sei();
+}
+
+void profileOptionsMenuController(){
+    for(uint8_t i = 0 ; i < 2 ; i++){
+        int8_t strBuff[5];
+        for(uint8_t j = 0 ; j < 5 ; j++) strBuff[j] = pgm_read_byte(&profileOptsMenuItems[i][j]);
+        printStr_SSD1306(0, i+1, strBuff, i == menuIndex);
+    }
+    
+
+    if(abs(incrementsModulator) > 2){
+        menuIndex = !menuIndex;
+        incrementsModulator = 0;
+    }
+
+    if(backButton != backButtonPrevious){
+        if(backButton) profileMenuInit();
+        backButtonPrevious = backButton;
+    }
+
+    if(menuButton != menuButtonPrevious){
+        if(menuButton){
+            if(menuIndex) saveProfile(editeeBuffer);
+            else          loadProfile(editeeBuffer);
+            mainScreenInit();
         }
         menuButtonPrevious = menuButton;
     }

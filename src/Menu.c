@@ -75,6 +75,7 @@ void mainScreenInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -146,6 +147,7 @@ void mainMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
     
     sei();
 }
@@ -219,6 +221,7 @@ void instrumentMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
     screenStart = 0;
     displayIndex = 0;
 
@@ -283,6 +286,7 @@ void keyboardModeMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -334,6 +338,7 @@ void envelopeMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -443,6 +448,7 @@ void attackMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -504,6 +510,7 @@ void decayMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -565,6 +572,7 @@ void sustainMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -616,6 +624,7 @@ void releaseMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }
@@ -667,6 +676,7 @@ void profileMenuInit(){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
     screenStart = 0;
     displayIndex = 0;
 
@@ -725,6 +735,7 @@ void profileOptionsMenuInit(uint8_t profileIndex){
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
     menuIndex = 0;
+    incrementsModulator = 0;
 
     sei();
 }

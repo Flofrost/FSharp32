@@ -9,7 +9,7 @@ typedef struct Instrument{
     int8_t icon;
 } Instrument;
 
-#define N_INSTRUMENTS 7
+#define N_INSTRUMENTS 8
 extern const Instrument instrumentList[N_INSTRUMENTS] PROGMEM;
 
 extern const uint16_t noteFrequencies[4][32] PROGMEM;

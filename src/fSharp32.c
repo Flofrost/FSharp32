@@ -48,22 +48,43 @@ void loadProfile(uint8_t profileIndex){
     loadInstrument(numBuff);
     loadedProfile.selectedInstrument = numBuff;
 
-    loadedProfile.envelope.attackTarget = eeprom_read_byte(&savedProfiles[profileIndex].envelope.attackTarget);
-    loadedProfile.envelope.attackStep   = eeprom_read_byte(&savedProfiles[profileIndex].envelope.attackStep);
-    loadedProfile.envelope.attackDelay  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.attackDelay);
-    loadedProfile.envelope.decayTarget  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.decayTarget);
-    loadedProfile.envelope.decayStep    = eeprom_read_byte(&savedProfiles[profileIndex].envelope.decayStep);
-    loadedProfile.envelope.decayDelay   = eeprom_read_byte(&savedProfiles[profileIndex].envelope.decayDelay);
-    loadedProfile.envelope.sustainStep  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.sustainStep);
-    loadedProfile.envelope.sustainDelay = eeprom_read_byte(&savedProfiles[profileIndex].envelope.sustainDelay);
-    loadedProfile.envelope.releaseStep  = eeprom_read_byte(&savedProfiles[profileIndex].envelope.releaseStep);
-    loadedProfile.envelope.releaseDelay = eeprom_read_byte(&savedProfiles[profileIndex].envelope.releaseDelay);
+    eeprom_read_block(&loadedProfile.envelope, &savedProfiles[profileIndex].envelope, sizeof(Envelope));
 
     sei();
 }
 
 void saveProfile(uint8_t profileIndex){
+    cli();
 
+    eeprom_write_block(&loadedProfile.envelope, &savedProfiles[profileIndex].envelope, sizeof(Envelope));
+    
+    eeprom_write_byte(&savedProfiles[profileIndex].selectedInstrument, loadedProfile.selectedInstrument);
+    
+    int8_t nameBuff[16];
+
+    nameBuff[0] = loadedInstrument.icon;
+
+    nameBuff[1] = loadedInstrument.name[0];
+    nameBuff[2] = loadedInstrument.name[1];
+    nameBuff[3] = loadedInstrument.name[2];
+
+    nameBuff[4] = pgm_read_byte(&hexChars[loadedProfile.envelope.attackTarget >> 4]);
+    nameBuff[5] = pgm_read_byte(&hexChars[loadedProfile.envelope.attackTarget & 15]);
+
+    nameBuff[6] = pgm_read_byte(&hexChars[loadedProfile.envelope.decayTarget >> 4]);
+    nameBuff[7] = pgm_read_byte(&hexChars[loadedProfile.envelope.decayTarget & 15]);
+
+    nameBuff[8] = pgm_read_byte(&hexChars[loadedProfile.envelope.sustainStep >> 4]);
+    nameBuff[9] = pgm_read_byte(&hexChars[loadedProfile.envelope.sustainStep & 15]);
+
+    nameBuff[10] = pgm_read_byte(&hexChars[loadedProfile.envelope.releaseStep >> 4]);
+    nameBuff[11] = pgm_read_byte(&hexChars[loadedProfile.envelope.releaseStep & 15]);
+    
+    nameBuff[12] = 0;
+
+    eeprom_write_block(nameBuff, &savedProfiles[profileIndex].name, 16);
+    
+    sei();
 }
 
 
@@ -118,8 +139,8 @@ ISR(TIMER2_COMPA_vect){ // 15625 Hz
 
     for(uint8_t i = 0 ; i < N_VOICES ; i++)
         if(voices[i].stage != off){
-            voiceSample = loadedInstrument[voices[i].phase >> 8] >> 2;
-            voiceSample = (voiceSample * (voices[i].amplitude + (tremolo << 3))) >> 7;
+            voiceSample = loadedInstrument.samples[voices[i].phase >> 8] >> 2;
+            voiceSample = (voiceSample * (voices[i].amplitude + (tremolo << 4))) >> 7;
             sample += voiceSample;
 
             voices[i].phase += voices[i].frequency + (vibrato << 4);

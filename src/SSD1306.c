@@ -1,5 +1,4 @@
 #include "SSD1306.h"
-#include <avr/pgmspace.h>
 
 // <------  Down
 const uint8_t charmap5x7[128][6] PROGMEM = {

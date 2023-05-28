@@ -14,7 +14,8 @@ const int8_t mainMenuItems[][18] PROGMEM = {
     "Instruments   ",
     "Keyboard Modes",
     "Envelope      ",
-    "Profiles      "
+    "Profiles      ",
+    "Reset Voices  "
 };
 const int8_t keyboardModeMenuItems[][7] PROGMEM = {
     "Normal",
@@ -69,8 +70,7 @@ void mainScreenInit(){
     printStr_SSD1306(7, 1, strBuff, 0);
 
     printStr_SSD1306(0, 2, "Ins : ", 0);
-    for(uint8_t i = 0 ; i < 16 ; i++) strBuff[i] = pgm_read_byte(&instrumentList[loadedProfile.selectedInstrument].name[i]);
-    printStr_SSD1306(6, 2, strBuff, 0);
+    printStr_SSD1306(6, 2, loadedInstrument.name, 0);
 
     menuButtonPrevious = menuButton;
     backButtonPrevious = backButton;
@@ -190,6 +190,17 @@ void mainMenuController(){
                 case 3:
                     profileMenuInit();
                     break;
+                case 4:
+                    freeVoice(0);
+                    freeVoice(1);
+                    freeVoice(2);
+                    freeVoice(3);
+                    voices[0].stage = off;
+                    voices[1].stage = off;
+                    voices[2].stage = off;
+                    voices[3].stage = off;
+                    mainScreenInit();
+                    break;
             }
         }
         menuButtonPrevious = menuButton;
@@ -215,21 +226,22 @@ void instrumentMenuInit(){
 }
 
 void instrumentMenuController(){
-    for(uint8_t i = 0 ; i < N_INSTRUMENTS ; i++){
+    if(menuIndex < screenStart) screenStart = menuIndex;
+    if(menuIndex > screenStart + 6) screenStart = menuIndex - 6;
+
         int8_t strBuff[16];
-        for(uint8_t j = 0 ; j < 16 ; j++) strBuff[j] = pgm_read_byte(&instrumentList[i].name[j]);
-        if(i == menuIndex){
-            printChar_SSD1306(0, i+1, ' ', ATTR_INVERTED);
-            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), ATTR_INVERTED);
-            printChar_SSD1306(2, i+1, ' ', ATTR_INVERTED);
-            printStr_SSD1306 (3, i+1, strBuff, ATTR_INVERTED);
+        for(uint8_t j = 0 ; j < 16 ; j++) strBuff[j] = pgm_read_byte(&instrumentList[screenStart + displayIndex].name[j]);
+        if(screenStart + displayIndex == menuIndex){
+            printChar_SSD1306(0, displayIndex + 1, pgm_read_byte(&instrumentList[screenStart + displayIndex].icon), ATTR_INVERTED);
+            printChar_SSD1306(1, displayIndex + 1, ' ', ATTR_INVERTED);
+            printStr_SSD1306 (2, displayIndex + 1, strBuff, ATTR_INVERTED);
         }else{
-            printChar_SSD1306(0, i+1, ' ', 0);
-            printChar_SSD1306(1, i+1, pgm_read_byte(&instrumentList[i].icon), 0);
-            printChar_SSD1306(2, i+1, ' ', 0);
-            printStr_SSD1306 (3, i+1, strBuff, 0);
+            printChar_SSD1306(0, displayIndex + 1, pgm_read_byte(&instrumentList[screenStart + displayIndex].icon), 0);
+            printChar_SSD1306(1, displayIndex + 1, ' ', 0);
+            printStr_SSD1306 (2, displayIndex + 1, strBuff, 0);
         }
-    }
+
+    if(++displayIndex >= 7) displayIndex = 0;
     
 
     if(incrementsModulator < -2){

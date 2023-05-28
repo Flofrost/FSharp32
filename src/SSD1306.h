@@ -2,6 +2,7 @@
 #define SSD1306_H
 
 #include <avr/io.h>
+#include <avr/pgmspace.h>
 #include "I2C.h"
 
 #define ATTR_INVERTED  0x01
@@ -20,6 +21,9 @@
     I2C_WRITE(command); \
     I2C_WAIT_TRASMISSION(); \
     I2C_STOP()
+
+
+extern const int8_t hexChars[16] PROGMEM;
 
 void init_SSD1306();
 void clear_SSD1306();

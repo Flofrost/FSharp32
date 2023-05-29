@@ -14,8 +14,7 @@ const int8_t mainMenuItems[][18] PROGMEM = {
     "Instruments   ",
     "Keyboard Modes",
     "Envelope      ",
-    "Profiles      ",
-    "Reset Voices  "
+    "Profiles      "
 };
 const int8_t keyboardModeMenuItems[][7] PROGMEM = {
     "Normal",
@@ -132,6 +131,23 @@ void mainScreenController(){
         if(menuButton) mainMenuInit();
         menuButtonPrevious = menuButton;
     }
+
+    if(backButton != backButtonPrevious){
+        if(backButton){
+            cli();
+            freeVoice(0);
+            freeVoice(1);
+            freeVoice(2);
+            freeVoice(3);
+            voices[0].stage = off;
+            voices[1].stage = off;
+            voices[2].stage = off;
+            voices[3].stage = off;
+            init_SSD1306();
+            sei();
+        }
+        backButtonPrevious = backButton;
+    }
 }
 
 
@@ -189,17 +205,6 @@ void mainMenuController(){
                     break;
                 case 3:
                     profileMenuInit();
-                    break;
-                case 4:
-                    freeVoice(0);
-                    freeVoice(1);
-                    freeVoice(2);
-                    freeVoice(3);
-                    voices[0].stage = off;
-                    voices[1].stage = off;
-                    voices[2].stage = off;
-                    voices[3].stage = off;
-                    mainScreenInit();
                     break;
             }
         }

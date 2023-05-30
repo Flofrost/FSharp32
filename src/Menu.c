@@ -324,7 +324,7 @@ void keyboardModeMenuController(){
     if(menuButton != menuButtonPrevious){
         if(menuButton){
             loadedKeyboardMode = menuIndex;
-            loadKeyboardMode(menuIndex)
+            loadKeyboardMode(menuIndex);
             mainScreenInit();
         }
         menuButtonPrevious = menuButton;

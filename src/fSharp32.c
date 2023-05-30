@@ -176,6 +176,13 @@ ISR(TIMER0_OVF_vect){ // ~ 61 Hz
 }
 
 
+ISR(USART0_RX_vect){
+    static uint8_t index = 0;
+    loadedInstrument.samples[index] = UDR0;
+    index++;
+}
+
+
 int main(){
     
     TCCR2A = 0x02;
@@ -192,7 +199,7 @@ int main(){
     EICRA = 0x0F;
     EIMSK = 0x03; // Enable INT0 and INT1
 
-    UCSR0B = 0x18;
+    UCSR0B = 0x98;
     UBRR0L = 0x08; // Uart setup 115200 baud
         
     TWBR = 16;

@@ -144,7 +144,7 @@ void mainScreenController(){
             voices[1].stage = off;
             voices[2].stage = off;
             voices[3].stage = off;
-            init_SSD1306();
+            for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255;
             sei();
         }
         backButtonPrevious = backButton;

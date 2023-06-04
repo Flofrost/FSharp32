@@ -59,7 +59,6 @@ extern Profile loadedProfile;
 extern uint8_t loadedKeyboardMode;
 
 uint8_t allocateVoice();
-void    freeVoice(uint8_t voiceAddress);
 
 void loadProfile(uint8_t profileIndex);
 void saveProfile(uint8_t profileIndex);

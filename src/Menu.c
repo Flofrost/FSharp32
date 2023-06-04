@@ -135,17 +135,11 @@ void mainScreenController(){
 
     if(backButton != backButtonPrevious){
         if(backButton){
-            cli();
-            freeVoice(0);
-            freeVoice(1);
-            freeVoice(2);
-            freeVoice(3);
             voices[0].stage = off;
             voices[1].stage = off;
             voices[2].stage = off;
             voices[3].stage = off;
-            init_SSD1306();
-            sei();
+            for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255;
         }
         backButtonPrevious = backButton;
     }

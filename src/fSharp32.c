@@ -27,18 +27,18 @@ Profile loadedProfile = {
 };
 
 
-uint8_t busyVoices = 0;
 uint8_t allocateVoice(){
-    for(uint8_t i = 0 ; i < N_VOICES ; i++)
-        if(!((busyVoices >> i) & 0x01)){
-            busyVoices |= 1 << i;
-            return i;
-        }
-    return 255;
-}
+    uint8_t nextBest = 255;
 
-void freeVoice(uint8_t voiceAddress){
-    if(voiceAddress < N_VOICES) busyVoices &= ~(1 << voiceAddress);
+    for(uint8_t i = 0 ; i < N_VOICES ; i++){
+        if(voices[i].stage == off) return i;
+        if(voices[i].stage == release){
+            if(nextBest == 255) nextBest = i;
+            else if(voices[i].amplitude < voices[nextBest].amplitude) nextBest = i;
+        }
+    }
+    
+    return nextBest;
 }
 
 void loadProfile(uint8_t profileIndex){
@@ -68,8 +68,8 @@ void saveProfile(uint8_t profileIndex){
     nameBuff[2] = loadedInstrument.name[1];
     nameBuff[3] = loadedInstrument.name[2];
 
-    nameBuff[4] = pgm_read_byte(&hexChars[loadedProfile.envelope.attackTarget >> 4]);
-    nameBuff[5] = pgm_read_byte(&hexChars[loadedProfile.envelope.attackTarget & 15]);
+    nameBuff[4] = pgm_read_byte(&hexChars[loadedProfile.envelope.attackStep >> 4]);
+    nameBuff[5] = pgm_read_byte(&hexChars[loadedProfile.envelope.attackStep & 15]);
 
     nameBuff[6] = pgm_read_byte(&hexChars[loadedProfile.envelope.decayTarget >> 4]);
     nameBuff[7] = pgm_read_byte(&hexChars[loadedProfile.envelope.decayTarget & 15]);
@@ -112,7 +112,6 @@ static void envelopeManager(Voice* voice){
             if(++voice->counter >= loadedProfile.envelope.sustainDelay){
                 if(voice->amplitude - loadedProfile.envelope.sustainStep <= 0){
                     voice->stage = off;
-                    freeVoice(keyToVoiceMap[voice->originatorKey]);
                     keyToVoiceMap[voice->originatorKey] = 255;
                 }
                 else voice->amplitude -= loadedProfile.envelope.sustainStep;

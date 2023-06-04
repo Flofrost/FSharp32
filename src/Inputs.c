@@ -85,7 +85,6 @@ void normalKeyboardOperation(){
                 if((releases >> i) & 0x01){
                     if(keyToVoiceMap[i] != 255){
                         voices[keyToVoiceMap[i]].stage = release;
-                        freeVoice(keyToVoiceMap[i]);
                         keyToVoiceMap[i] = 255;
                     }
                 }
@@ -114,7 +113,6 @@ void toggleKeyboardOperation(){
                         }
                     }else{
                         voices[keyToVoiceMap[i]].stage = release;
-                        freeVoice(keyToVoiceMap[i]);
                         keyToVoiceMap[i] = 255;
                     }
                 }
@@ -139,7 +137,6 @@ void burstKeyboardOperation(){
                         voices[keyToVoiceMap[i]].frequency = pgm_read_word(&noteFrequencies[octave][i]);
                         voices[keyToVoiceMap[i]].amplitude = loadedProfile.envelope.attackTarget;
                         voices[keyToVoiceMap[i]].originatorKey = i;
-                        freeVoice(keyToVoiceMap[i]);
                     }
                 }
 

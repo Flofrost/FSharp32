@@ -40,7 +40,6 @@ const int8_t profileOptsMenuItems[][5] PROGMEM = {
 
 void mainScreenInit(){
     cli();
-    int8_t strBuff[21];
 
     screenControlFunction = mainScreenController;
 
@@ -51,19 +50,20 @@ void mainScreenInit(){
 
     switch(octave){
         case 0:
-            printStr_SSD1306(9, 0, "12", 0);
+            printStr_SSD1306(9, 0, "34", 0);
             break;
         case 1:
-            printStr_SSD1306(9, 0, "34", 0);
+            printStr_SSD1306(9, 0, "45", 0);
             break;
         case 2:
             printStr_SSD1306(9, 0, "56", 0);
             break;
         case 3:
-            printStr_SSD1306(9, 0, "78", 0);
+            printStr_SSD1306(9, 0, "67", 0);
             break;
     }
     
+    int8_t strBuff[7];
     printStr_SSD1306(0, 1, "Mode : ", 0);
     for(uint8_t i = 0 ; i < 7 ; i++) strBuff[i] = pgm_read_byte(&keyboardModeMenuItems[loadedKeyboardMode][i]);
     printStr_SSD1306(7, 1, strBuff, 0);
@@ -318,7 +318,11 @@ void keyboardModeMenuController(){
     if(menuButton != menuButtonPrevious){
         if(menuButton){
             loadedKeyboardMode = menuIndex;
-            loadKeyboardMode(menuIndex);
+            
+            if     (loadedKeyboardMode == 0) keyboardHandlingFunction = normalKeyboardOperation;
+            else if(loadedKeyboardMode == 1) keyboardHandlingFunction = toggleKeyboardOperation;
+            else if(loadedKeyboardMode == 2) keyboardHandlingFunction = burstKeyboardOperation;
+
             mainScreenInit();
         }
         menuButtonPrevious = menuButton;

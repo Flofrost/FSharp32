@@ -24,6 +24,7 @@ extern uint32_t keyboardState, keyboardPreviousState;
 
 extern volatile uint8_t menuButton, backButton;
 
+
 void (*keyboardHandlingFunction)();
 
 void readKeyboard();
@@ -31,18 +32,5 @@ void readKeyboard();
 void normalKeyboardOperation();
 void toggleKeyboardOperation();
 void burstKeyboardOperation();
-
-
-#define loadKeyboardMode(modeIndex) switch(modeIndex){ \
-    case 0: \
-        keyboardHandlingFunction = normalKeyboardOperation; \
-        break; \
-    case 1: \
-        keyboardHandlingFunction = toggleKeyboardOperation; \
-        break; \
-    case 2: \
-        keyboardHandlingFunction = burstKeyboardOperation; \
-        break; \
-}
 
 #endif

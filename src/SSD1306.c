@@ -188,7 +188,7 @@ void clear_SSD1306(){
         I2C_WAIT_TRASMISSION();
         I2C_WRITE(0x40);
         I2C_WAIT_TRASMISSION();
-        for(uint16_t i = 0; i < 128; i++){
+        for(uint8_t i = 0; i < 128; i++){
             I2C_WRITE(0x00);
             I2C_WAIT_TRASMISSION();
         }

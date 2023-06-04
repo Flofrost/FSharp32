@@ -215,7 +215,7 @@ int main(){
     for(uint8_t i = 0 ; i < N_KEYS ; i++) keyToVoiceMap[i] = 255; // Init of key to voices map
 
     loadInstrument(loadedProfile.selectedInstrument);
-    loadKeyboardMode(loadedKeyboardMode);
+    keyboardHandlingFunction = normalKeyboardOperation;
 
     init_SSD1306();
     
